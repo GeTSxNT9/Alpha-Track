@@ -124,7 +124,10 @@
             currentDay = day;
             const content = document.getElementById('list');
             let htmlBuffer = '';
+            
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + day));
+
+            document.getElementById('btn-' + day).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
             const ahora = Date.now();
             const cuatroHoras = 4 * 60 * 60 * 1000;
