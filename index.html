@@ -120,7 +120,7 @@
 
         let currentDay = "";
 
-function show(day) {
+        function show(day) {
             currentDay = day;
             const content = document.getElementById('list');
             let htmlBuffer = '';
@@ -128,11 +128,13 @@ function show(day) {
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + day));
 
             setTimeout(() => {
+                const navBar = document.querySelector('.nav');
                 const activeBtn = document.getElementById('btn-' + day);
-                if (activeBtn) {
-                    activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                if (navBar && activeBtn) {
+                    const scrollTarget = activeBtn.offsetLeft - (navBar.offsetWidth / 2) + (activeBtn.offsetWidth / 2);
+                    navBar.scrollTo({ left: scrollTarget, behavior: 'smooth' });
                 }
-            }, 100);
+            }, 200);
 
             const ahora = Date.now();
             const cuatroHoras = 4 * 60 * 60 * 1000;
