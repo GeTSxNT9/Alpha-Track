@@ -240,14 +240,29 @@
             reader.readAsText(file);
         }
 
-        // Registro de Service Worker para modo offline
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./sw.js');
         }
 
-        const dNum = new Date().getDay();
-        const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-        show(routine[days[dNum]] ? days[dNum] : "Lunes");
+
+        window.addEventListener('load', () => {
+            const dNum = new Date().getDay();
+            const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+            const hoy = routine[days[dNum]] ? days[dNum] : "Lunes";
+            
+            show(hoy);
+            
+
+            setTimeout(() => {
+                const navBar = document.querySelector('.nav');
+                const activeBtn = document.getElementById('btn-' + hoy);
+                if (navBar && activeBtn) {
+                    const scrollTarget = activeBtn.offsetLeft - (navBar.offsetWidth / 2) + (activeBtn.offsetWidth / 2);
+                    navBar.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+                }
+            }, 400); 
+        });
     </script>
 </body>
 </html>
