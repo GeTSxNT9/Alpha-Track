@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>ALPHA TRACK PRO</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=A&background=000&color=fff&size=512&font-size=0.8&bold=true">
+
+    <style>
+        body { background: #080a12; color: white; font-family: -apple-system, sans-serif; margin: 0; padding: 10px; padding-bottom: 80px; }
+        .header { text-align: center; padding: 10px 0; }
+        .header h1 { margin: 0; font-size: 24px; letter-spacing: -1px; color: #ffffff; }
+        .header span { color: #818cf8; font-size: 10px; font-weight: bold; letter-spacing: 3px; }
+        
+        .nav { display: flex; background: #111827; padding: 6px; border-radius: 14px; margin-bottom: 20px; border: 1px solid #1f2937; overflow-x: auto; gap: 8px; scrollbar-width: none; }
+        .nav::-webkit-scrollbar { display: none; }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; min-width: 120px; text-align: center; }
+        .nav-btn { width: 100%; background: #1f2937; border: none; color: #d1d5db; padding: 10px 0; font-weight: 800; font-size: 12px; cursor: pointer; border-radius: 10px; transition: 0.2s; }
+        .nav-btn.active { background: #6366f1; color: white; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+        
+        .day-label { font-size: 9px; color: #818cf8; font-weight: bold; margin-top: 6px; text-transform: uppercase; white-space: nowrap; }
+        .muscles-label { font-size: 7px; color: #9ca3af; margin-top: 2px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+
+        .card { background: #111827; border-radius: 18px; padding: 15px; margin-bottom: 15px; border-left: 5px solid #374151; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: 0.3s; position: relative; }
+        .card.done { opacity: 0.35; filter: grayscale(0.5); border-left-color: #4b5563 !important; }
+        
+        /* Colores por Grupo */
+        .card.pecho { border-left-color: #f87171; }
+        .card.espalda { border-left-color: #60a5fa; }
+        .card.pierna { border-left-color: #34d399; }
+        .card.hombro { border-left-color: #fbbf24; }
+        .card.brazo { border-left-color: #c084fc; }
+        .card.abdomen { border-left-color: #22d3ee; }
+        .card.hombro-lat { border-left-color: #94a3b8; }
+
+        .card.extra-bonus {
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            border-left: 5px solid #fbbf24;
+            background: linear-gradient(145deg, #0f172a, #1e1b4b);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+        }
+        .card.extra-bonus .ex-name { color: #fbbf24; }
+        .card.extra-bonus .ex-info { background: rgba(251, 191, 36, 0.1); color: #fde68a; }
+
+        .ex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .ex-title-group { flex: 1; }
+        .ex-name { font-weight: 800; font-size: 16px; color: #ffffff; display: block; line-height: 1.2; }
+        .ex-info { font-size: 11px; color: #d1d5db; margin-top: 4px; display: block; font-weight: 600; background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; width: fit-content; }
+        
+        .check-container { margin-left: 10px; padding-top: 2px; }
+        input[type="checkbox"] { width: 24px; height: 24px; cursor: pointer; accent-color: #10b981; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .box { background: #1f2937; padding: 10px; border-radius: 10px; border: 1px solid #374151; }
+        .box label { display: block; font-size: 9px; color: #a5b4fc; text-transform: uppercase; margin-bottom: 4px; font-weight: 800; }
+        input[type="text"] { background: none; border: none; color: white; width: 100%; font-size: 20px; font-weight: 900; outline: none; }
+        
+        textarea { width: 100%; background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 10px; color: #e5e7eb; margin-top: 10px; box-sizing: border-box; font-family: inherit; resize: none; min-height: 40px; outline: none; font-size: 13px; }
+        
+        #save { position: fixed; top: 15px; right: 15px; width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: none; z-index: 100; box-shadow: 0 0 10px #10b981; }
+
+        /* Footer con herramientas */
+        .footer-tools { margin-top: 30px; display: flex; justify-content: center; gap: 15px; border-top: 1px solid #1f2937; padding-top: 20px; }
+        .btn-tool { background: #111827; border: 1px solid #374151; color: #9ca3af; padding: 8px 15px; border-radius: 8px; font-size: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .btn-tool:active { background: #1f2937; }
+    </style>
+</head>
+<body>
+    <div id="save"></div>
+    <div class="header"><span>WORKOUT TRACKER</span><h1>ALPHA TRACK</h1></div>
+
+    <div class="nav">
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Lunes" onclick="show('Lunes')">LUNES</button>
+            <span class="day-label">Empuje</span>
+            <span class="muscles-label">Pecho, Hombro, Tríceps</span>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Martes" onclick="show('Martes')">MARTES</button>
+            <span class="day-label">Tracción</span>
+            <span class="muscles-label">Espalda, Bíceps</span>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Miércoles" onclick="show('Miércoles')">MIÉRCOLES</button>
+            <span class="day-label">Pierna A</span>
+            <span class="muscles-label">Cuádriceps, Abdominales</span>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Jueves" onclick="show('Jueves')">JUEVES</button>
+            <span class="day-label">Torso e Hipertrofia</span>
+            <span class="muscles-label">Pecho, Espalda, Tríceps</span>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Viernes" onclick="show('Viernes')">VIERNES</button>
+            <span class="day-label">Pierna B e Hipertrofia</span>
+            <span class="muscles-label">Femoral, Bíceps, Gemelos</span>
+        </div>
+    </div>
+
+    <div id="list"></div>
+
+    <div class="footer-tools">
+        <button class="btn-tool" onclick="exportBackup()">📥 Exportar Backup</button>
+        <button class="btn-tool" onclick="document.getElementById('importFile').click()">📤 Importar Backup</button>
+        <input type="file" id="importFile" style="display:none" onchange="importBackup(this)">
+    </div>
+
+    <script>
+        const routine = {
+            "Lunes": [["Press de Pecho en Máquina", "4 series x 8-10 reps", "pecho"], ["Press Militar en Máquina", "3 series x 10 reps", "hombro"], ["Máquina Contractora (Peck Deck)", "3 series x 12-15 reps", "pecho"], ["Elevaciones Laterales (Mancuernas)", "4 series x 15 reps", "hombro-lat"], ["Extensión Unilateral (Polea Alta)", "3 series x 12 reps/brazo", "brazo"], ["★ EXTRA: Aperturas en Polea (Crossover)", "3 series x 15 reps", "pecho"]],
+            "Martes": [["Jalón al Pecho (Agarre Ancho)", "4 series x 10-12 reps", "espalda"], ["Remo Sentado en Polea", "3 series x 10 reps", "espalda"], ["Remo Unilateral en Máquina", "3 series x 12 reps/lado", "espalda"], ["Curl de Bíceps con Barra", "3 series x 10 reps", "brazo"], ["Curl Martillo con Mancuernas", "3 series x 12 reps", "brazo"], ["★ EXTRA: Pull-over (Polea Alta)", "3 series x 12-15 reps", "espalda"]],
+            "Miércoles": [["Sentadilla en Jaca (Hack Squat)", "4 series x 10 reps", "pierna"], ["Prensa de Piernas", "3 series x 12 reps", "pierna"], ["Extensión de Cuádriceps", "3 series x 15 reps", "pierna"], ["Abductores en Máquina", "3 series x 15 reps", "pierna"], ["Máquina de Abdominales", "3 series x 15-20 reps", "abdomen"], ["★ EXTRA: Curl Femoral Sentado", "3 series x 12-15 reps", "pierna"]],
+            "Jueves": [["Press Inclinado (Máquina o Mancuerna)", "3 series x 10-12 reps", "pecho"], ["Jalón al Pecho (Agarre Cerrado)", "3 series x 12 reps", "espalda"], ["Extensión sobre la cabeza (Polea baja)", "3 series x 12 reps", "brazo"], ["Patada de Tríceps en Polea (Polea media)", "3 series x 15 reps", "brazo"], ["Deltoide Lateral (Polea o Máquina)", "3 series x 15 reps", "hombro-lat"], ["★ EXTRA: Fondos en Máquina Asistida", "3 series x 10-12 reps", "brazo"]],
+            "Viernes": [["Peso Muerto Rumano", "4 series x 10-12 reps", "pierna"], ["Femoral Tumbado", "3 series x 12 reps", "pierna"], ["Curl Bíceps (Polea baja, de frente)", "3 series x 12 reps", "brazo"], ["Curl Bayesiano Unilateral (Polea baja, de espaldas)", "3 series x 12 reps/brazo", "brazo"], ["Gemelos", "4 series x 15 reps", "pierna"], ["★ EXTRA: Curl Concentrado con Mancuerna", "3 series x 12 reps/brazo", "brazo"]]
+        };
+
+        let currentDay = "";
+
+        function show(day) {
+            currentDay = day;
+            const content = document.getElementById('list');
+            let htmlBuffer = '';
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + day));
+
+            const ahora = Date.now();
+            const cuatroHoras = 4 * 60 * 60 * 1000;
+
+            routine[day].forEach((ex, i) => {
+                const k = `alpha_v4_${day}${i}`;
+                let s = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
+                
+                if (s.done && (ahora - s.time > cuatroHoras)) {
+                    s.done = false;
+                    s.time = 0;
+                    localStorage.setItem(k, JSON.stringify(s));
+                }
+
+                const isExtra = ex[0].includes('★');
+                const extraClass = isExtra ? 'extra-bonus' : '';
+                const isDone = s.done ? 'done' : '';
+                const isChecked = s.done ? 'checked' : '';
+
+                htmlBuffer += `
+                    <div class="card ${ex[2]} ${extraClass} ${isDone}" id="card-${day}-${i}">
+                        <div class="ex-header">
+                            <div class="ex-title-group">
+                                <span class="ex-name">${ex[0]}</span>
+                                <span class="ex-info">OBJETIVO: ${ex[1]}</span>
+                            </div>
+                            <div class="check-container">
+                                <input type="checkbox" ${isChecked} onclick="toggleDone('${day}', ${i}, this)">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${day}',${i},'w',this.value)"></div>
+                            <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${day}',${i},'r',this.value)"></div>
+                        </div>
+                        <textarea placeholder="Notas de la serie..." oninput="upd('${day}',${i},'n',this.value)">${s.n.replace(/"/g, '&quot;')}</textarea>
+                    </div>`;
+            });
+            content.innerHTML = htmlBuffer;
+            window.scrollTo(0,0);
+        }
+
+        function toggleDone(day, i, el) {
+            const k = `alpha_v4_${day}${i}`;
+            const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
+            o.done = el.checked;
+            o.time = el.checked ? Date.now() : 0;
+            localStorage.setItem(k, JSON.stringify(o));
+            document.getElementById(`card-${day}-${i}`).classList.toggle('done', el.checked);
+            saveInd();
+        }
+
+        function upd(d, i, f, v) {
+            const k = `alpha_v4_${d}${i}`;
+            const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
+            o[f] = v;
+            localStorage.setItem(k, JSON.stringify(o));
+            saveInd();
+        }
+
+        function saveInd() {
+            const indicator = document.getElementById('save');
+            indicator.style.display = 'block';
+            clearTimeout(window.t);
+            window.t = setTimeout(() => { indicator.style.display='none'; }, 800);
+        }
+
+        function exportBackup() {
+            const backup = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('alpha_v4_')) {
+                    backup[key] = localStorage.getItem(key);
+                }
+            }
+            const blob = new Blob([JSON.stringify(backup)], {type: "application/json"});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `alpha_track_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+        }
+
+        function importBackup(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (confirm("¿Importar datos? Esto sobrescribirá los actuales.")) {
+                        Object.keys(data).forEach(key => {
+                            if (key.startsWith('alpha_v4_')) {
+                                localStorage.setItem(key, data[key]);
+                            }
+                        });
+                        alert("¡Importación exitosa!");
+                        location.reload();
+                    }
+                } catch (err) {
+                    alert("Error al procesar el archivo.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Registro de Service Worker para modo offline
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+
+        const dNum = new Date().getDay();
+        const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+        show(routine[days[dNum]] ? days[dNum] : "Lunes");
+    </script>
+</body>
+</html>
