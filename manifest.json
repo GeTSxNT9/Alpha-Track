@@ -1,0 +1,15 @@
+{
+  "name": "Alpha Track Pro",
+  "short_name": "AlphaTrack",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#080a12",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "https://ui-avatars.com/api/?name=A&background=000&color=fff&size=512&font-size=0.8&bold=true",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
