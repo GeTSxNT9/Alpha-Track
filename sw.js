@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alpha-v_new_icon_v2';
+const CACHE_NAME = 'alpha-v_dicebear_icon';
 
 self.addEventListener('install', e => {
   e.waitUntil(
