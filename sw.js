@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alpha-v_final_scroll';
+const CACHE_NAME = 'alpha-v_new_icon_v2';
 
 self.addEventListener('install', e => {
   e.waitUntil(
