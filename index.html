@@ -109,160 +109,163 @@
         <input type="file" id="importFile" style="display:none" onchange="importBackup(this)">
     </div>
 
-    <script>
-        const routine = {
-            "Lunes": [["Press de Pecho en Máquina", "4 series x 8-10 reps", "pecho"], ["Press Militar en Máquina", "3 series x 10 reps", "hombro"], ["Máquina Contractora (Peck Deck)", "3 series x 12-15 reps", "pecho"], ["Elevaciones Laterales (Mancuernas)", "4 series x 15 reps", "hombro-lat"], ["Extensión Unilateral (Polea Alta)", "3 series x 12 reps/brazo", "brazo"], ["★ EXTRA: Aperturas en Polea (Crossover)", "3 series x 15 reps", "pecho"]],
-            "Martes": [["Jalón al Pecho (Agarre Ancho)", "4 series x 10-12 reps", "espalda"], ["Remo Sentado en Polea", "3 series x 10 reps", "espalda"], ["Remo Unilateral en Máquina", "3 series x 12 reps/lado", "espalda"], ["Curl de Bíceps con Barra", "3 series x 10 reps", "brazo"], ["Curl Martillo con Mancuernas", "3 series x 12 reps", "brazo"], ["★ EXTRA: Pull-over (Polea Alta)", "3 series x 12-15 reps", "espalda"]],
-            "Miércoles": [["Sentadilla en Jaca (Hack Squat)", "4 series x 10 reps", "pierna"], ["Prensa de Piernas", "3 series x 12 reps", "pierna"], ["Extensión de Cuádriceps", "3 series x 15 reps", "pierna"], ["Abductores en Máquina", "3 series x 15 reps", "pierna"], ["Máquina de Abdominales", "3 series x 15-20 reps", "abdomen"], ["★ EXTRA: Curl Femoral Sentado", "3 series x 12-15 reps", "pierna"]],
-            "Jueves": [["Press Inclinado (Máquina o Mancuerna)", "3 series x 10-12 reps", "pecho"], ["Jalón al Pecho (Agarre Cerrado)", "3 series x 12 reps", "espalda"], ["Extensión sobre la cabeza (Polea baja)", "3 series x 12 reps", "brazo"], ["Patada de Tríceps en Polea (Polea media)", "3 series x 15 reps", "brazo"], ["Deltoide Lateral (Polea o Máquina)", "3 series x 15 reps", "hombro-lat"], ["★ EXTRA: Fondos en Máquina Asistida", "3 series x 10-12 reps", "brazo"]],
-            "Viernes": [["Peso Muerto Rumano", "4 series x 10-12 reps", "pierna"], ["Femoral Tumbado", "3 series x 12 reps", "pierna"], ["Curl Bíceps (Polea baja, de frente)", "3 series x 12 reps", "brazo"], ["Curl Bayesiano Unilateral (Polea baja, de espaldas)", "3 series x 12 reps/brazo", "brazo"], ["Gemelos", "4 series x 15 reps", "pierna"], ["★ EXTRA: Curl Concentrado con Mancuerna", "3 series x 12 reps/brazo", "brazo"]]
-        };
+<script>
+    const routine = {
+        "Lunes": [["Press de Pecho en Máquina", "4 series x 8-10 reps", "pecho"], ["Press Militar en Máquina", "3 series x 10 reps", "hombro"], ["Máquina Contractora (Peck Deck)", "3 series x 12-15 reps", "pecho"], ["Elevaciones Laterales (Mancuernas)", "4 series x 15 reps", "hombro-lat"], ["Extensión Unilateral (Polea Alta)", "3 series x 12 reps/brazo", "brazo"], ["★ EXTRA: Aperturas en Polea (Crossover)", "3 series x 15 reps", "pecho"]],
+        "Martes": [["Jalón al Pecho (Agarre Ancho)", "4 series x 10-12 reps", "espalda"], ["Remo Sentado en Polea", "3 series x 10 reps", "espalda"], ["Remo Unilateral en Máquina", "3 series x 12 reps/lado", "espalda"], ["Curl de Bíceps con Barra", "3 series x 10 reps", "brazo"], ["Curl Martillo con Mancuernas", "3 series x 12 reps", "brazo"], ["★ EXTRA: Pull-over (Polea Alta)", "3 series x 12-15 reps", "espalda"]],
+        "Miércoles": [["Sentadilla en Jaca (Hack Squat)", "4 series x 10 reps", "pierna"], ["Prensa de Piernas", "3 series x 12 reps", "pierna"], ["Extensión de Cuádriceps", "3 series x 15 reps", "pierna"], ["Abductores en Máquina", "3 series x 15 reps", "pierna"], ["Máquina de Abdominales", "3 series x 15-20 reps", "abdomen"], ["★ EXTRA: Curl Femoral Sentado", "3 series x 12-15 reps", "pierna"]],
+        "Jueves": [["Press Inclinado (Máquina o Mancuerna)", "3 series x 10-12 reps", "pecho"], ["Jalón al Pecho (Agarre Cerrado)", "3 series x 12 reps", "espalda"], ["Extensión sobre la cabeza (Polea baja)", "3 series x 12 reps", "brazo"], ["Patada de Tríceps en Polea (Polea media)", "3 series x 15 reps", "brazo"], ["Deltoide Lateral (Polea o Máquina)", "3 series x 15 reps", "hombro-lat"], ["★ EXTRA: Fondos en Máquina Asistida", "3 series x 10-12 reps", "brazo"]],
+        "Viernes": [["Peso Muerto Rumano", "4 series x 10-12 reps", "pierna"], ["Femoral Tumbado", "3 series x 12 reps", "pierna"], ["Curl Bíceps (Polea baja, de frente)", "3 series x 12 reps", "brazo"], ["Curl Bayesiano Unilateral (Polea baja, de espaldas)", "3 series x 12 reps/brazo", "brazo"], ["Gemelos", "4 series x 15 reps", "pierna"], ["★ EXTRA: Curl Concentrado con Mancuerna", "3 series x 12 reps/brazo", "brazo"]]
+    };
 
-        let currentDay = "";
+    let currentDay = "";
 
-        function show(day) {
-            currentDay = day;
-            const content = document.getElementById('list');
-            let htmlBuffer = '';
-            
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + day));
+    function show(day) {
+        currentDay = day;
+        const content = document.getElementById('list');
+        let htmlBuffer = '';
+        
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + day));
 
-            setTimeout(() => {
-                const navBar = document.querySelector('.nav');
-                const activeBtn = document.getElementById('btn-' + day);
-                if (navBar && activeBtn) {
-                    const scrollTarget = activeBtn.offsetLeft - (navBar.offsetWidth / 2) + (activeBtn.offsetWidth / 2);
-                    navBar.scrollTo({ left: scrollTarget, behavior: 'smooth' });
-                }
-            }, 200);
-
-            const ahora = Date.now();
-            const cuatroHoras = 4 * 60 * 60 * 1000;
-
-            routine[day].forEach((ex, i) => {
-                const k = `alpha_v4_${day}${i}`;
-                let s = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
-                
-                if (s.done && (ahora - s.time > cuatroHoras)) {
-                    s.done = false;
-                    s.time = 0;
-                    localStorage.setItem(k, JSON.stringify(s));
-                }
-
-                const isExtra = ex[0].includes('★');
-                const extraClass = isExtra ? 'extra-bonus' : '';
-                const isDone = s.done ? 'done' : '';
-                const isChecked = s.done ? 'checked' : '';
-
-                htmlBuffer += `
-                    <div class="card ${ex[2]} ${extraClass} ${isDone}" id="card-${day}-${i}">
-                        <div class="ex-header">
-                            <div class="ex-title-group">
-                                <span class="ex-name">${ex[0]}</span>
-                                <span class="ex-info">OBJETIVO: ${ex[1]}</span>
-                            </div>
-                            <div class="check-container">
-                                <input type="checkbox" ${isChecked} onclick="toggleDone('${day}', ${i}, this)">
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${day}',${i},'w',this.value)"></div>
-                            <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${day}',${i},'r',this.value)"></div>
-                        </div>
-                        <textarea placeholder="Notas de la serie..." oninput="upd('${day}',${i},'n',this.value)">${s.n.replace(/"/g, '&quot;')}</textarea>
-                    </div>`;
-            });
-            content.innerHTML = htmlBuffer;
-            window.scrollTo(0,0);
-        }
-
-        function toggleDone(day, i, el) {
+        routine[day].forEach((ex, i) => {
             const k = `alpha_v4_${day}${i}`;
-            const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
-            o.done = el.checked;
-            o.time = el.checked ? Date.now() : 0;
-            localStorage.setItem(k, JSON.stringify(o));
-            document.getElementById(`card-${day}-${i}`).classList.toggle('done', el.checked);
-            saveInd();
-        }
+            let s = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
+            
+            const isExtra = ex[0].includes('★');
+            const extraClass = isExtra ? 'extra-bonus' : '';
+            const isDone = s.done ? 'done' : '';
+            const isChecked = s.done ? 'checked' : '';
 
-        function upd(d, i, f, v) {
-            const k = `alpha_v4_${d}${i}`;
-            const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
-            o[f] = v;
-            localStorage.setItem(k, JSON.stringify(o));
-            saveInd();
-        }
+            htmlBuffer += `
+                <div class="card ${ex[2]} ${extraClass} ${isDone}" id="card-${day}-${i}">
+                    <div class="ex-header">
+                        <div class="ex-title-group">
+                            <span class="ex-name">${ex[0]}</span>
+                            <span class="ex-info">OBJETIVO: ${ex[1]}</span>
+                        </div>
+                        <div class="check-container">
+                            <input type="checkbox" ${isChecked} onclick="toggleDone('${day}', ${i}, this)">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${day}',${i},'w',this.value)"></div>
+                        <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${day}',${i},'r',this.value)"></div>
+                    </div>
+                    <textarea placeholder="Notas de la serie..." oninput="upd('${day}',${i},'n',this.value)">${s.n.replace(/"/g, '&quot;')}</textarea>
+                </div>`;
+        });
+        content.innerHTML = htmlBuffer;
+    }
 
-        function saveInd() {
-            const indicator = document.getElementById('save');
-            indicator.style.display = 'block';
-            clearTimeout(window.t);
-            window.t = setTimeout(() => { indicator.style.display='none'; }, 800);
-        }
+    function toggleDone(day, i, el) {
+        const k = `alpha_v4_${day}${i}`;
+        const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
+        o.done = el.checked;
+        o.time = el.checked ? Date.now() : 0;
+        localStorage.setItem(k, JSON.stringify(o));
+        document.getElementById(`card-${day}-${i}`).classList.toggle('done', el.checked);
+        saveInd();
+    }
 
-        function exportBackup() {
-            const backup = {};
+    function upd(d, i, f, v) {
+        const k = `alpha_v4_${d}${i}`;
+        const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
+        o[f] = v;
+        localStorage.setItem(k, JSON.stringify(o));
+        saveInd();
+    }
+
+    function saveInd() {
+        const indicator = document.getElementById('save');
+        indicator.style.display = 'block';
+        clearTimeout(window.t);
+        window.t = setTimeout(() => { indicator.style.display='none'; }, 800);
+    }
+
+    function exportBackup() {
+        const backup = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('alpha_v4_')) {
+                backup[key] = localStorage.getItem(key);
+            }
+        }
+        const blob = new Blob([JSON.stringify(backup)], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `alpha_track_backup_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+    }
+
+    function importBackup(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (confirm("¿Importar datos? Esto sobrescribirá los actuales.")) {
+                    Object.keys(data).forEach(key => {
+                        if (key.startsWith('alpha_v4_')) {
+                            localStorage.setItem(key, data[key]);
+                        }
+                    });
+                    alert("¡Importación exitosa!");
+                    location.reload();
+                }
+            } catch (err) {
+                alert("Error al procesar el archivo.");
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function checkMidnightReset() {
+        const hoy = new Date().toDateString();
+        const ultimaFecha = localStorage.getItem('alpha_last_open');
+
+        if (ultimaFecha && ultimaFecha !== hoy) {
+            // Recorremos las claves para resetear solo el estado 'done'
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
                 if (key.startsWith('alpha_v4_')) {
-                    backup[key] = localStorage.getItem(key);
+                    let data = JSON.parse(localStorage.getItem(key));
+                    if (data.done) {
+                        data.done = false;
+                        data.time = 0;
+                        localStorage.setItem(key, JSON.stringify(data));
+                    }
                 }
             }
-            const blob = new Blob([JSON.stringify(backup)], {type: "application/json"});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `alpha_track_backup_${new Date().toISOString().slice(0,10)}.json`;
-            a.click();
+            console.log("¡Cambio de día! Rutina reseteada.");
         }
+        localStorage.setItem('alpha_last_open', hoy);
+    }
 
-        function importBackup(input) {
-            const file = input.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (confirm("¿Importar datos? Esto sobrescribirá los actuales.")) {
-                        Object.keys(data).forEach(key => {
-                            if (key.startsWith('alpha_v4_')) {
-                                localStorage.setItem(key, data[key]);
-                            }
-                        });
-                        alert("¡Importación exitosa!");
-                        location.reload();
-                    }
-                } catch (err) {
-                    alert("Error al procesar el archivo.");
-                }
-            };
-            reader.readAsText(file);
-        }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js');
+    }
 
+    window.addEventListener('load', () => {
+        // 1. Ejecutamos el reseteo diario antes de mostrar nada
+        checkMidnightReset();
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js');
-        }
+        // 2. Detectamos el día actual
+        const dNum = new Date().getDay();
+        const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+        const hoy = routine[days[dNum]] ? days[dNum] : "Lunes";
+        
+        show(hoy);
 
-
-        window.addEventListener('load', () => {
-            const dNum = new Date().getDay();
-            const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-            const hoy = routine[days[dNum]] ? days[dNum] : "Lunes";
-            
-            show(hoy);
-            
-
-            setTimeout(() => {
-                const navBar = document.querySelector('.nav');
-                const activeBtn = document.getElementById('btn-' + hoy);
-                if (navBar && activeBtn) {
-                    const scrollTarget = activeBtn.offsetLeft - (navBar.offsetWidth / 2) + (activeBtn.offsetWidth / 2);
-                    navBar.scrollTo({ left: scrollTarget, behavior: 'smooth' });
-                }
-            }, 400); 
-        });
-    </script>
-</body>
-</html>
+        // 3. Scroll suave al botón del día actual
+        setTimeout(() => {
+            const navBar = document.querySelector('.nav');
+            const activeBtn = document.getElementById('btn-' + hoy);
+            if (navBar && activeBtn) {
+                const scrollTarget = activeBtn.offsetLeft - (navBar.offsetWidth / 2) + (activeBtn.offsetWidth / 2);
+                navBar.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+            }
+        }, 400); 
+    });
+</script>
