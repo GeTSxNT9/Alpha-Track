@@ -1,13 +1,14 @@
 {
-  "name": "ALPHA TRACK PRO",
+  "name": "ALPHA TRACK",
   "short_name": "AlphaTrack",
+  "description": "Workout Tracker",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#080a12",
   "theme_color": "#6366f1",
   "icons": [
     {
-      "src": "https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=000000&fontSize=60&fontWeight=700",
+      "src": "https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=000000&fontSize=70&fontWeight=700",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
