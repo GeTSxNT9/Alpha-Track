@@ -63,7 +63,6 @@
         
         #save { position: fixed; top: 15px; right: 15px; width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: none; z-index: 100; box-shadow: 0 0 10px #10b981; }
 
-        /* Footer con herramientas */
         .footer-tools { margin-top: 30px; display: flex; justify-content: center; gap: 15px; border-top: 1px solid #1f2937; padding-top: 20px; }
         .btn-tool { background: #111827; border: 1px solid #374151; color: #9ca3af; padding: 8px 15px; border-radius: 8px; font-size: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
         .btn-tool:active { background: #1f2937; }
@@ -151,7 +150,7 @@
                         <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${day}',${i},'w',this.value)"></div>
                         <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${day}',${i},'r',this.value)"></div>
                     </div>
-                    <textarea placeholder="Notas de la serie..." oninput="upd('${day}',${i},'n',this.value)">${s.n.replace(/"/g, '&quot;')}</textarea>
+                    <textarea placeholder="Notas de la serie..." oninput="upd('${day}',${i},'n',this.value)">${s.n}</textarea>
                 </div>`;
         });
         content.innerHTML = htmlBuffer;
@@ -226,19 +225,19 @@
         const ultimaFecha = localStorage.getItem('alpha_last_open');
 
         if (ultimaFecha && ultimaFecha !== hoy) {
-            // Recorremos las claves para resetear solo el estado 'done'
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('alpha_v4_')) {
+            // Optimización: Solo iteramos sobre la estructura de la rutina actual
+            Object.keys(routine).forEach(dayName => {
+                routine[dayName].forEach((_, index) => {
+                    const key = `alpha_v4_${dayName}${index}`;
                     let data = JSON.parse(localStorage.getItem(key));
-                    if (data.done) {
+                    if (data && data.done) {
                         data.done = false;
                         data.time = 0;
                         localStorage.setItem(key, JSON.stringify(data));
                     }
-                }
-            }
-            console.log("¡Cambio de día! Rutina reseteada.");
+                });
+            });
+            console.log("¡Día nuevo! Rutina reseteada.");
         }
         localStorage.setItem('alpha_last_open', hoy);
     }
@@ -248,17 +247,12 @@
     }
 
     window.addEventListener('load', () => {
-        // 1. Ejecutamos el reseteo diario antes de mostrar nada
         checkMidnightReset();
-
-        // 2. Detectamos el día actual
         const dNum = new Date().getDay();
         const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
         const hoy = routine[days[dNum]] ? days[dNum] : "Lunes";
-        
         show(hoy);
 
-        // 3. Scroll suave al botón del día actual
         setTimeout(() => {
             const navBar = document.querySelector('.nav');
             const activeBtn = document.getElementById('btn-' + hoy);
@@ -269,3 +263,5 @@
         }, 400); 
     });
 </script>
+</body>
+</html>
