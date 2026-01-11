@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>ALPHA TRACK PRO</title>
+    <title>ALPHA TRACK</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=000000&fontSize=60&fontWeight=700">
+    <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=000000&fontSize=70&fontWeight=700">
 
     <style>
         body { background: #080a12; color: white; font-family: -apple-system, sans-serif; margin: 0; padding: 10px; padding-bottom: 80px; }
         .header { text-align: center; padding: 10px 0; }
-        .header h1 { margin: 0; font-size: 24px; letter-spacing: -1px; color: #ffffff; }
+        .header h1 { margin: 0; font-size: 24px; letter-spacing: -1px; color: #ffffff; text-transform: uppercase; }
         .header span { color: #818cf8; font-size: 10px; font-weight: bold; letter-spacing: 3px; }
         
         .nav { display: flex; background: #111827; padding: 6px; border-radius: 14px; margin-bottom: 20px; border: 1px solid #1f2937; overflow-x: auto; gap: 8px; scrollbar-width: none; }
@@ -28,7 +28,6 @@
         .card { background: #111827; border-radius: 18px; padding: 15px; margin-bottom: 15px; border-left: 5px solid #374151; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: 0.3s; position: relative; }
         .card.done { opacity: 0.35; filter: grayscale(0.5); border-left-color: #4b5563 !important; }
         
-        /* Colores por Grupo */
         .card.pecho { border-left-color: #f87171; }
         .card.espalda { border-left-color: #60a5fa; }
         .card.pierna { border-left-color: #34d399; }
@@ -225,7 +224,6 @@
         const ultimaFecha = localStorage.getItem('alpha_last_open');
 
         if (ultimaFecha && ultimaFecha !== hoy) {
-            // Optimización: Solo iteramos sobre la estructura de la rutina actual
             Object.keys(routine).forEach(dayName => {
                 routine[dayName].forEach((_, index) => {
                     const key = `alpha_v4_${dayName}${index}`;
