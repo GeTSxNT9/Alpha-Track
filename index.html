@@ -107,25 +107,21 @@
         .card.pierna { border-left-color: #34d399; }
         .card.hombro { border-left-color: #fbbf24; }
         .card.brazo { border-left-color: #c084fc; }
+        .card.antebrazo { border-left-color: #94a3b8; } /* Nuevo color para antebrazo */
         .card.abdomen { border-left-color: #22d3ee; }
         .card.hombro-lat { border-left-color: #94a3b8; }
 
         .card.extra-bonus {
             border: 1px solid rgba(251, 191, 36, 0.4);
             border-left: 5px solid #fbbf24;
-            background: linear-gradient(145deg, #ffffff, #fffdf0); /* Degradado mucho más sutil */
+            background: linear-gradient(145deg, #ffffff, #fffdf0); 
             box-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);
         }
 
-        /* Título del ejercicio extra en negro para mayor claridad */
-        .card.extra-bonus .ex-name { 
-            color: #000000; 
-        } 
-
-        /* Subtítulo del ejercicio extra en un tono neutro */
+        .card.extra-bonus .ex-name { color: #000000; } 
         .card.extra-bonus .ex-info { 
             background: rgba(251, 191, 36, 0.15); 
-            color: #7d5a00; /* Un ocre suave que no llega a ser rojo */
+            color: #7d5a00; 
         }
 
         .ex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
@@ -137,7 +133,7 @@
             margin-top: 4px; 
             display: block; 
             font-weight: 600; 
-            background: #f0f2f5; /* Fondo gris claro */
+            background: #f0f2f5; 
             padding: 2px 6px; 
             border-radius: 4px; 
             width: fit-content; 
@@ -148,12 +144,12 @@
             width: 24px; 
             height: 24px; 
             cursor: pointer; 
-            accent-color: #00ba69; /* Verde éxito de Nutri-Track */
+            accent-color: #00ba69; 
         }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .box { 
-            background: #f8f9fa; /* Fondo input gris */
+            background: #f8f9fa; 
             padding: 10px; 
             border-radius: 10px; 
             border: 1px solid #dce2e8; 
@@ -161,7 +157,7 @@
         .box label { 
             display: block; 
             font-size: 9px; 
-            color: #0095f6; /* Azul */
+            color: #0095f6; 
             text-transform: uppercase; 
             margin-bottom: 4px; 
             font-weight: 800; 
@@ -169,7 +165,7 @@
         input[type="text"] { 
             background: none; 
             border: none; 
-            color: #1c1e21; /* Texto oscuro */
+            color: #1c1e21; 
             width: 100%; 
             font-size: 20px; 
             font-weight: 900; 
@@ -178,7 +174,7 @@
         
         textarea { 
             width: 100%; 
-            background: #f8f9fa; /* Fondo gris */
+            background: #f8f9fa; 
             border: 1px solid #dce2e8; 
             border-radius: 10px; 
             padding: 10px; 
@@ -198,7 +194,7 @@
             right: 15px; 
             width: 8px; 
             height: 8px; 
-            background: #00ba69; /* Verde éxito */
+            background: #00ba69; 
             border-radius: 50%; 
             display: none; 
             z-index: 100; 
@@ -214,7 +210,7 @@
             padding-top: 20px; 
         }
         .btn-tool { 
-            background: #ffffff; /* Botón blanco */
+            background: #ffffff; 
             border: 1px solid #dce2e8; 
             color: #65676b; 
             padding: 8px 15px; 
@@ -240,7 +236,7 @@
         <div class="nav-item">
             <button class="nav-btn" id="btn-Martes" onclick="show('Martes')">MARTES</button>
             <span class="day-label">Tracción</span>
-            <span class="muscles-label">Espalda, Bíceps</span>
+            <span class="muscles-label">Espalda, Bíceps, Antebrazo</span>
         </div>
         <div class="nav-item">
             <button class="nav-btn" id="btn-Miércoles" onclick="show('Miércoles')">MIÉRCOLES</button>
@@ -255,7 +251,7 @@
         <div class="nav-item">
             <button class="nav-btn" id="btn-Viernes" onclick="show('Viernes')">VIERNES</button>
             <span class="day-label">Pierna B e Hipertrofia</span>
-            <span class="muscles-label">Femoral, Bíceps, Gemelos</span>
+            <span class="muscles-label">Femoral, Bíceps, Gemelos, Antebrazo</span>
         </div>
     </div>
 
@@ -269,11 +265,11 @@
 
 <script>
     const routine = {
-        "Lunes": [["Press de Pecho en Máquina", "4 series x 8-10 reps", "pecho"], ["Press Militar en Máquina", "3 series x 10 reps", "hombro"], ["Máquina Contractora (Peck Deck)", "3 series x 12-15 reps", "pecho"], ["Elevaciones Laterales (Mancuernas)", "4 series x 15 reps", "hombro-lat"], ["Extensión Unilateral (Polea)", "3 series x 12 reps/brazo", "brazo"], ["★ EXTRA: Aperturas en Polea (Crossover)", "3 series x 15 reps", "pecho"]],
-        "Martes": [["Jalón al Pecho", "4 series x 10-12 reps", "espalda"], ["Remo Sentado en Polea", "3 series x 10 reps", "espalda"], ["Remo Unilateral en Máquina", "3 series x 12 reps/lado", "espalda"], ["Curl de Bíceps con Barra", "3 series x 10 reps", "brazo"], ["Curl Martillo con Mancuernas", "3 series x 12 reps", "brazo"], ["★ EXTRA: Pull-over (Polea)", "3 series x 12-15 reps", "espalda"]],
+        "Lunes": [["Press de Pecho (Máquina)", "4 series x 8-10 reps", "pecho"], ["Press Militar (Máquina)", "3 series x 10 reps", "hombro"], ["Máquina Contractora (Peck Deck)", "3 series x 12-15 reps", "pecho"], ["Elevaciones Laterales (Mancuernas)", "4 series x 15 reps", "hombro-lat"], ["Extensión Unilateral (Polea)", "3 series x 12 reps/brazo", "brazo"], ["★ EXTRA: Aperturas (Polea)", "3 series x 15 reps", "pecho"]],
+        "Martes": [["Jalón al Pecho (Polea)", "4 series x 10-12 reps", "espalda"], ["Remo Sentado (Polea)", "3 series x 10 reps", "espalda"], ["Remo Unilateral (Máquina)", "3 series x 12 reps/lado", "espalda"], ["Curl de Bíceps con Barra", "3 series x 10 reps", "brazo"], ["Curl Martillo (Mancuernas)", "3 series x 12 reps", "brazo"], ["Curl de Muñeca (Polea)", "3 series x 12 reps", "antebrazo"], ["Curl de Biceps Inverso (Polea)", "3 series x 10 reps", "antebrazo"], ["Extensiones de Muñeca Unilateral (Polea)", "2 series x 10 reps", "antebrazo"], ["★ EXTRA: Pull-over (Polea)", "3 series x 12-15 reps", "espalda"]],
         "Miércoles": [["Sentadilla en Jaca (Hack Squat)", "4 series x 10 reps", "pierna"], ["Prensa de Piernas", "3 series x 12 reps", "pierna"], ["Extensión de Cuádriceps", "3 series x 15 reps", "pierna"], ["Abductores en Máquina", "3 series x 15 reps", "pierna"], ["Máquina de Abdominales", "3 series x 15-20 reps", "abdomen"], ["★ EXTRA: Curl Femoral de Pie", "3 series x 12 reps", "pierna"]],
-        "Jueves": [["Press Inclinado (Máquina o Mancuerna)", "3 series x 10-12 reps", "pecho"], ["Jalón al Pecho", "3 series x 12 reps", "espalda"], ["Extensión Katana (Polea)", "3 series x 12-15 reps", "brazo"], ["Patada de Tríceps (Polea)", "3 series x 15 reps", "brazo"], ["Deltoide Lateral (Polea o Máquina)", "3 series x 15 reps", "hombro-lat"], ["★ EXTRA: Fondos en Máquina Asistida", "3 series x 10-12 reps", "brazo"]],
-        "Viernes": [["Peso Muerto Rumano", "4 series x 10-12 reps", "pierna"], ["Femoral Tumbado", "3 series x 12 reps", "pierna"], ["Curl Bíceps (Polea)", "3 series x 12 reps", "brazo"], ["Curl Bayesiano Unilateral (Polea)", "3 series x 12 reps/brazo", "brazo"], ["Gemelos", "4 series x 15 reps", "pierna"], ["★ EXTRA: Curl Concentrado con Mancuerna", "3 series x 12 reps/brazo", "brazo"]]
+        "Jueves": [["Press Inclinado (Máquina o Mancuernas)", "3 series x 10-12 reps", "pecho"], ["Jalón al Pecho (Polea)", "3 series x 12 reps", "espalda"], ["Extensión Katana (Polea)", "3 series x 12-15 reps", "brazo"], ["Patada de Tríceps (Polea)", "3 series x 15 reps", "brazo"], ["Deltoide Lateral (Polea o Máquina)", "3 series x 15 reps", "hombro-lat"], ["★ EXTRA: Fondos en Máquina Asistida", "3 series x 10-12 reps", "brazo"]],
+        "Viernes": [["Peso Muerto Rumano", "4 series x 10-12 reps", "pierna"], ["Femoral Tumbado", "3 series x 12 reps", "pierna"], ["Curl de Bíceps (Polea)", "3 series x 12 reps", "brazo"], ["Curl Bayesiano Unilateral (Polea)", "3 series x 12 reps/brazo", "brazo"], ["Gemelos", "4 series x 15 reps", "pierna"], ["Curl de Muñeca (Polea)", "3 series x 12 reps", "antebrazo"], ["Curl de Biceps Inverso (Polea)", "3 series x 10 reps", "antebrazo"], ["Extensiones de Muñeca Unilateral (Polea)", "2 series x 10 reps", "antebrazo"], ["★ EXTRA: Curl Concentrado (Mancuernas)", "3 series x 12 reps/brazo", "brazo"]]
     };
 
     let currentDay = "";
