@@ -7,13 +7,13 @@
     
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default"> <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=000000&fontSize=70&fontWeight=700">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default"> 
+    <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=000000&fontSize=70&fontWeight=700">
 
     <style>
-        /* COLORES ACTUALIZADOS - ESTRUCTURA INTACTA */
         body { 
-            background: #f0f2f5; /* Fondo claro como Nutri-Track */
-            color: #1c1e21; /* Texto oscuro */
+            background: #f0f2f5; 
+            color: #1c1e21; 
             font-family: -apple-system, sans-serif; 
             margin: 0; 
             padding: 10px; 
@@ -24,11 +24,11 @@
             margin: 0; 
             font-size: 24px; 
             letter-spacing: -1px; 
-            color: #000000; /* Título negro */
+            color: #000000; 
             text-transform: uppercase; 
         }
         .header span { 
-            color: #0095f6; /* Azul de acento como Nutri-Track */
+            color: #0095f6; 
             font-size: 10px; 
             font-weight: bold; 
             letter-spacing: 3px; 
@@ -36,11 +36,11 @@
         
         .nav { 
             display: flex; 
-            background: #ffffff; /* Fondo blanco */
+            background: #ffffff; 
             padding: 6px; 
             border-radius: 14px; 
             margin-bottom: 20px; 
-            border: 1px solid #dce2e8; /* Borde suave */
+            border: 1px solid #dce2e8; 
             overflow-x: auto; 
             gap: 8px; 
             scrollbar-width: none; 
@@ -49,9 +49,9 @@
         .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; min-width: 120px; text-align: center; }
         .nav-btn { 
             width: 100%; 
-            background: #f0f2f5; /* Fondo gris claro */
+            background: #f0f2f5; 
             border: none; 
-            color: #65676b; /* Texto muted */
+            color: #65676b; 
             padding: 10px 0; 
             font-weight: 800; 
             font-size: 12px; 
@@ -60,14 +60,14 @@
             transition: 0.2s; 
         }
         .nav-btn.active { 
-            background: #0095f6; /* Azul activo */
+            background: #0095f6; 
             color: white; 
             box-shadow: 0 4px 12px rgba(0, 149, 246, 0.3); 
         }
         
         .day-label { 
             font-size: 9px; 
-            color: #0095f6; /* Azul */
+            color: #0095f6; 
             font-weight: bold; 
             margin-top: 6px; 
             text-transform: uppercase; 
@@ -75,7 +75,7 @@
         }
         .muscles-label { 
             font-size: 7px; 
-            color: #65676b; /* Texto muted */
+            color: #65676b; 
             margin-top: 2px; 
             text-transform: uppercase; 
             white-space: nowrap; 
@@ -85,12 +85,12 @@
         }
 
         .card { 
-            background: #ffffff; /* Fondo blanco */
+            background: #ffffff; 
             border-radius: 18px; 
             padding: 15px; 
             margin-bottom: 15px; 
-            border-left: 5px solid #dce2e8; /* Borde gris por defecto */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave */
+            border-left: 5px solid #dce2e8; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
             transition: 0.3s; 
             position: relative; 
         }
@@ -98,16 +98,15 @@
             opacity: 0.35; 
             filter: grayscale(0.5); 
             border-left-color: #bdc3c7 !important; 
-            background: #f8f9fa; /* Fondo gris al completar */
+            background: #f8f9fa; 
         }
         
-        /* Se mantienen los bordes de colores originales */
         .card.pecho { border-left-color: #f87171; }
         .card.espalda { border-left-color: #60a5fa; }
         .card.pierna { border-left-color: #34d399; }
         .card.hombro { border-left-color: #fbbf24; }
         .card.brazo { border-left-color: #c084fc; }
-        .card.antebrazo { border-left-color: #94a3b8; } /* Nuevo color para antebrazo */
+        .card.antebrazo { border-left-color: #94a3b8; }
         .card.abdomen { border-left-color: #22d3ee; }
         .card.hombro-lat { border-left-color: #94a3b8; }
 
@@ -116,12 +115,6 @@
             border-left: 5px solid #fbbf24;
             background: linear-gradient(145deg, #ffffff, #fffdf0); 
             box-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);
-        }
-
-        .card.extra-bonus .ex-name { color: #000000; } 
-        .card.extra-bonus .ex-info { 
-            background: rgba(251, 191, 36, 0.15); 
-            color: #7d5a00; 
         }
 
         .ex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
@@ -241,17 +234,17 @@
         <div class="nav-item">
             <button class="nav-btn" id="btn-Miércoles" onclick="show('Miércoles')">MIÉRCOLES</button>
             <span class="day-label">Pierna A y Abdomen</span>
-            <span class="muscles-label">Cuádriceps, Abdominales</span>
+            <span class="muscles-label">Cuádriceps, Femoral, Abdomen</span>
         </div>
         <div class="nav-item">
             <button class="nav-btn" id="btn-Jueves" onclick="show('Jueves')">JUEVES</button>
             <span class="day-label">Torso e Hipertrofia</span>
-            <span class="muscles-label">Pecho, Espalda, Tríceps</span>
+            <span class="muscles-label">Pecho, Espalda, Hombro, Tríceps</span>
         </div>
         <div class="nav-item">
             <button class="nav-btn" id="btn-Viernes" onclick="show('Viernes')">VIERNES</button>
             <span class="day-label">Pierna B e Hipertrofia</span>
-            <span class="muscles-label">Femoral, Bíceps, Gemelos, Antebrazo</span>
+            <span class="muscles-label">Femoral, Bíceps, Gemelo, Antebrazo</span>
         </div>
     </div>
 
@@ -391,13 +384,8 @@
                     }
                 });
             });
-            console.log("¡Día nuevo! Rutina reseteada.");
         }
         localStorage.setItem('alpha_last_open', hoy);
-    }
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js');
     }
 
     window.addEventListener('load', () => {
