@@ -252,6 +252,7 @@
 
 <script>
     const routine = {
+        // ... (mantén tu objeto routine exactamente igual que antes) ...
         "Lunes": [
             ["Press de Pecho (Máquina)", "4 series x 8-10 reps", "Pectoral Mayor (Global)"],
             ["Press Militar (Máquina)", "3 series x 8-10 reps", "Deltoides Anterior"],
@@ -300,11 +301,22 @@
         ]
     };
 
-    let currentDay = "";
+    const syncedExercises = [
+        "curl de biceps inverso (polea)",
+        "curl de muñeca (polea)",
+        "extensiones de muñeca unilateral (polea)"
+    ];
 
-    function getExKey(exName) {
+    function getExKey(day, exName) {
         const clean = exName.replace('★ EXTRA: ', '').trim().toLowerCase();
-        return 'alpha_v4_ex_' + clean.replace(/[^a-z0-9áéíóúñ]/g, '_');
+        const formattedName = clean.replace(/[^a-z0-9áéíóúñ]/g, '_');
+        
+        // Si el ejercicio está en la lista de sincronizados, usamos un prefijo global
+        if (syncedExercises.includes(clean)) {
+            return 'alpha_v4_sync_' + formattedName;
+        }
+        // Si no, usamos el día para separarlos
+        return 'alpha_v4_' + day + '_' + formattedName;
     }
 
     function show(day) {
@@ -315,7 +327,7 @@
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + day));
 
         routine[day].forEach((ex, i) => {
-            const kData = getExKey(ex[0]);
+            const kData = getExKey(day, ex[0]);
             const kDone = `alpha_v4_done_${day}_${i}`; 
             
             let s = JSON.parse(localStorage.getItem(kData)) || {w:'', r:'', n:''};
@@ -338,35 +350,21 @@
                         </div>
                     </div>
                     <div class="grid">
-                        <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${escapedExName}','w',this.value)"></div>
-                        <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${escapedExName}','r',this.value)"></div>
+                        <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${day}', '${escapedExName}','w',this.value)"></div>
+                        <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${day}', '${escapedExName}','r',this.value)"></div>
                     </div>
-                    <textarea placeholder="Notas de la serie..." oninput="upd('${escapedExName}','n',this.value)">${s.n}</textarea>
+                    <textarea placeholder="Notas de la serie..." oninput="upd('${day}', '${escapedExName}','n',this.value)">${s.n}</textarea>
                 </div>`;
         });
         content.innerHTML = htmlBuffer;
     }
 
-    function toggleDone(day, i, el) {
-        const kDone = `alpha_v4_done_${day}_${i}`;
-        localStorage.setItem(kDone, el.checked ? 'true' : 'false');
-        document.getElementById(`card-${day}-${i}`).classList.toggle('done', el.checked);
-        saveInd();
-    }
-
-    function upd(exName, f, v) {
-        const k = getExKey(exName);
+    function upd(day, exName, f, v) {
+        const k = getExKey(day, exName);
         const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:''};
         o[f] = v;
         localStorage.setItem(k, JSON.stringify(o));
         saveInd();
-    }
-
-    function saveInd() {
-        const indicator = document.getElementById('save');
-        indicator.style.display = 'block';
-        clearTimeout(window.t);
-        window.t = setTimeout(() => { indicator.style.display='none'; }, 800);
     }
 
     function exportBackup() {
