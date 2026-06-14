@@ -386,43 +386,28 @@
     }
 
     function importBackup(input) {
-    const file = input.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const data = JSON.parse(e.target.result);
-            // Diccionario de traducción: Clave Antigua -> Nombre Exacto en tu nueva rutina
-            const traductor = {
-                "alpha_v4_Lunes0": "Press de Pecho (Máquina)", "alpha_v4_Lunes1": "Press Militar (Máquina)", "alpha_v4_Lunes2": "Máquina Contractora (Peck Deck)", "alpha_v4_Lunes3": "Aperturas (Polea)", "alpha_v4_Lunes4": "Elevaciones Laterales (Mancuernas)", "alpha_v4_Lunes5": "Extensión Unilateral (Polea)",
-                "alpha_v4_Martes0": "Jalón al Pecho (Polea)", "alpha_v4_Martes1": "Remo Unilateral (Máquina)", "alpha_v4_Martes2": "Remo Sentado (Polea)", "alpha_v4_Martes3": "Pull-over (Polea)", "alpha_v4_Martes4": "Curl de Bíceps con Barra", "alpha_v4_Martes5": "Curl Martillo (Mancuernas)", "alpha_v4_Martes6": "Curl de Biceps Inverso (Polea)", "alpha_v4_Martes7": "Curl de Muñeca (Polea)", "alpha_v4_Martes8": "Extensiones de Muñeca Unilateral (Polea)",
-                "alpha_v4_Miércoles0": "Sentadilla en Jaca (Hack Squat)", "alpha_v4_Miércoles1": "Prensa de Piernas", "alpha_v4_Miércoles2": "Curl Femoral Sentado", "alpha_v4_Miércoles3": "Extensión de Cuádriceps", "alpha_v4_Miércoles4": "Abductores en Máquina", "alpha_v4_Miércoles5": "Máquina de Abdominales",
-                "alpha_v4_Jueves0": "Press Inclinado (Máquina o Mancuernas)", "alpha_v4_Jueves1": "Jalón al Pecho (Polea)", "alpha_v4_Jueves2": "Deltoide Lateral (Polea o Máquina)", "alpha_v4_Jueves3": "Fondos en Máquina Asistida", "alpha_v4_Jueves4": "Extensión Katana (Polea)", "alpha_v4_Jueves5": "Patada de Tríceps (Polea)",
-                "alpha_v4_Viernes0": "Hip Thrust en Máquina", "alpha_v4_Viernes1": "Femoral Tumbado", "alpha_v4_Viernes2": "Curl Bayesiano Unilateral (Polea)", "alpha_v4_Viernes3": "Curl de Bíceps (Polea)", "alpha_v4_Viernes4": "Curl Concentrado (Mancuernas)", "alpha_v4_Viernes5": "Gemelos", "alpha_v4_Viernes6": "Curl de Biceps Inverso (Polea)", "alpha_v4_Viernes7": "Curl de Muñeca (Polea)", "alpha_v4_Viernes8": "Extensiones de Muñeca Unilateral (Polea)"
-            };
-
-            if (confirm("¿Importar y migrar datos antiguos?")) {
-                Object.keys(data).forEach(oldKey => {
-                    // Si la clave existe en nuestro traductor, la convertimos al nuevo formato
-                    if (traductor[oldKey]) {
-                        const nuevoNombre = traductor[oldKey];
-                        const newKey = getExKey(nuevoNombre);
-                        localStorage.setItem(newKey, data[oldKey]);
-                    } 
-                    // Si ya es formato nuevo (alpha_v4_ex_...), lo guardamos directo
-                    else if (oldKey.startsWith('alpha_v4_ex_')) {
-                        localStorage.setItem(oldKey, data[oldKey]);
-                    }
-                });
-                alert("¡Migración y carga exitosa!");
-                location.reload();
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (confirm("¿Importar datos? Esto sobrescribirá los actuales.")) {
+                    Object.keys(data).forEach(key => {
+                        if (key.startsWith('alpha_v4_')) {
+                            localStorage.setItem(key, data[key]);
+                        }
+                    });
+                    alert("¡Importación exitosa!");
+                    location.reload();
+                }
+            } catch (err) {
+                alert("Error al procesar el archivo.");
             }
-        } catch (err) {
-            alert("Error al procesar el backup.");
-        }
-    };
-    reader.readAsText(file);
-}
+        };
+        reader.readAsText(file);
+    }
+
     function checkMidnightReset() {
         const hoy = new Date().toDateString();
         const ultimaFecha = localStorage.getItem('alpha_last_open');
