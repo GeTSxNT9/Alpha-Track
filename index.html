@@ -252,7 +252,6 @@
 
 <script>
     const routine = {
-        // ... (mantén tu objeto routine exactamente igual que antes) ...
         "Lunes": [
             ["Press de Pecho (Máquina)", "4 series x 8-10 reps", "Pectoral Mayor (Global)"],
             ["Press Militar (Máquina)", "3 series x 8-10 reps", "Deltoides Anterior"],
@@ -365,6 +364,30 @@
         o[f] = v;
         localStorage.setItem(k, JSON.stringify(o));
         saveInd();
+    }
+    
+    function toggleDone(day, i, el) {
+        const kDone = `alpha_v4_done_${day}_${i}`;
+        const isDone = el.checked;
+        localStorage.setItem(kDone, isDone);
+        
+        const card = document.getElementById(`card-${day}-${i}`);
+        if (card) {
+            if (isDone) {
+                card.classList.add('done');
+            } else {
+                card.classList.remove('done');
+            }
+        }
+        saveInd();
+    }
+
+    function saveInd() {
+        const saveDiv = document.getElementById('save');
+        saveDiv.style.display = 'block';
+        setTimeout(() => {
+            saveDiv.style.display = 'none';
+        }, 1000);
     }
 
     function exportBackup() {
