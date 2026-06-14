@@ -102,22 +102,34 @@
         }
 
         .ex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-        .ex-title-group { flex: 1; }
+        .ex-title-group { flex: 1; display: flex; flex-direction: column; }
         .ex-name { font-weight: 800; font-size: 16px; color: #1c1e21; display: block; line-height: 1.2; }
+        
+        .ex-muscle-tag {
+            font-size: 9px; 
+            color: #0095f6; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
         .ex-info { 
             font-size: 11px; 
             color: #65676b; 
             font-weight: 600; 
             background: #f0f2f5; 
-            padding: 2px 6px; 
+            padding: 3px 7px; 
             border-radius: 4px; 
             width: fit-content; 
+            margin-top: 8px;
+            display: inline-block;
         }
         
         .check-container { margin-left: 10px; padding-top: 2px; }
         input[type="checkbox"] { 
-            width: 24px; 
-            height: 24px; 
+            width: 26px; 
+            height: 26px; 
             cursor: pointer; 
             accent-color: #00ba69; 
         }
@@ -318,10 +330,8 @@
                     <div class="ex-header">
                         <div class="ex-title-group">
                             <span class="ex-name">${ex[0]}</span>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; gap: 8px;">
-                                <span class="ex-info">OBJETIVO: ${ex[1]}</span>
-                                <span style="font-size: 10px; color: #0095f6; font-weight: 700; background: #e0f2fe; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; white-space: nowrap;">${ex[2]}</span>
-                            </div>
+                            <span class="ex-muscle-tag">${ex[2]}</span>
+                            <span class="ex-info">OBJETIVO: ${ex[1]}</span>
                         </div>
                         <div class="check-container">
                             <input type="checkbox" ${isChecked} onclick="toggleDone('${day}', ${i}, this)">
