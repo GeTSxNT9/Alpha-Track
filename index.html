@@ -392,17 +392,38 @@
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
+                let contadorImportadas = 0;
+                
                 if (confirm("¿Importar datos? Esto sobrescribirá los actuales.")) {
                     Object.keys(data).forEach(key => {
+                        // 1. Si ya es formato v4, se guarda directamente
                         if (key.startsWith('alpha_v4_')) {
                             localStorage.setItem(key, data[key]);
+                            contadorImportadas++;
+                        } 
+                        // 2. Si viene de una v3, la migramos a la v4 automáticamente
+                        else if (key.startsWith('alpha_v3_')) {
+                            const nuevaKey = key.replace('alpha_v3_', 'alpha_v4_');
+                            localStorage.setItem(nuevaKey, data[key]);
+                            contadorImportadas++;
+                        }
+                        // 3. Por si acaso tu versión inicial no tenía número de versión (ej: alpha_ex_)
+                        else if (key.startsWith('alpha_ex_') || key.startsWith('alpha_done_')) {
+                            const nuevaKey = 'alpha_v4_' + key.replace('alpha_', '');
+                            localStorage.setItem(nuevaKey, data[key]);
+                            contadorImportadas++;
                         }
                     });
-                    alert("¡Importación exitosa!");
-                    location.reload();
+                    
+                    if (contadorImportadas > 0) {
+                        alert(`¡Importación exitosa! Se han restaurado y actualizado ${contadorImportadas} elementos.`);
+                        location.reload();
+                    } else {
+                        alert("El archivo se leyó bien, pero no contenía ningún dato de versiones anteriores compatible.");
+                    }
                 }
             } catch (err) {
-                alert("Error al procesar el archivo.");
+                alert("Error al procesar el archivo. Asegúrate de que es un archivo de copia de seguridad .json válido.");
             }
         };
         reader.readAsText(file);
