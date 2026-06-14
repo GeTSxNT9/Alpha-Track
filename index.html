@@ -11,109 +11,449 @@
     <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=000000&fontSize=70&fontWeight=700">
 
     <style>
-        body { background: #f0f2f5; color: #1c1e21; font-family: -apple-system, sans-serif; margin: 0; padding: 10px; padding-bottom: 80px; }
+        body { 
+            background: #f0f2f5; 
+            color: #1c1e21; 
+            font-family: -apple-system, sans-serif; 
+            margin: 0; 
+            padding: 10px; 
+            padding-bottom: 80px; 
+        }
         .header { text-align: center; padding: 10px 0; }
-        .header h1 { margin: 0; font-size: 24px; letter-spacing: -1px; color: #000000; text-transform: uppercase; }
-        .header span { color: #0095f6; font-size: 10px; font-weight: bold; letter-spacing: 3px; }
-        .nav { display: flex; background: #ffffff; padding: 6px; border-radius: 14px; margin-bottom: 20px; border: 1px solid #dce2e8; overflow-x: auto; gap: 8px; scrollbar-width: none; }
+        .header h1 { 
+            margin: 0; 
+            font-size: 24px; 
+            letter-spacing: -1px; 
+            color: #000000; 
+            text-transform: uppercase; 
+        }
+        .header span { 
+            color: #0095f6; 
+            font-size: 10px; 
+            font-weight: bold; 
+            letter-spacing: 3px; 
+        }
+        
+        .nav { 
+            display: flex; 
+            background: #ffffff; 
+            padding: 6px; 
+            border-radius: 14px; 
+            margin-bottom: 20px; 
+            border: 1px solid #dce2e8; 
+            overflow-x: auto; 
+            gap: 8px; 
+            scrollbar-width: none; 
+        }
         .nav::-webkit-scrollbar { display: none; }
         .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; min-width: 120px; text-align: center; }
-        .nav-btn { width: 100%; background: #f0f2f5; border: none; color: #65676b; padding: 10px 0; font-weight: 800; font-size: 12px; cursor: pointer; border-radius: 10px; transition: 0.2s; }
-        .nav-btn.active { background: #0095f6; color: white; box-shadow: 0 4px 12px rgba(0, 149, 246, 0.3); }
-        .day-label { font-size: 9px; color: #0095f6; font-weight: bold; margin-top: 6px; text-transform: uppercase; white-space: nowrap; }
-        .muscles-label { font-size: 7px; color: #65676b; margin-top: 2px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
-        .card { background: #ffffff; border-radius: 18px; padding: 15px; margin-bottom: 15px; border: 1px solid #dce2e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .card.done { opacity: 0.35; filter: grayscale(0.5); border-color: #bdc3c7 !important; background: #f8f9fa; }
+        .nav-btn { 
+            width: 100%; 
+            background: #f0f2f5; 
+            border: none; 
+            color: #65676b; 
+            padding: 10px 0; 
+            font-weight: 800; 
+            font-size: 12px; 
+            cursor: pointer; 
+            border-radius: 10px; 
+            transition: 0.2s; 
+        }
+        .nav-btn.active { 
+            background: #0095f6; 
+            color: white; 
+            box-shadow: 0 4px 12px rgba(0, 149, 246, 0.3); 
+        }
+        
+        .day-label { 
+            font-size: 9px; 
+            color: #0095f6; 
+            font-weight: bold; 
+            margin-top: 6px; 
+            text-transform: uppercase; 
+            white-space: nowrap; 
+        }
+        .muscles-label { 
+            font-size: 7px; 
+            color: #65676b; 
+            margin-top: 2px; 
+            text-transform: uppercase; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            width: 100%; 
+        }
+
+        .card { 
+            background: #ffffff; 
+            border-radius: 18px; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            border: 1px solid #dce2e8; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            transition: 0.3s; 
+            position: relative; 
+        }
+        .card.done { 
+            opacity: 0.35; 
+            filter: grayscale(0.5); 
+            border-color: #bdc3c7 !important; 
+            background: #f8f9fa; 
+        }
+
         .ex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
         .ex-title-group { flex: 1; display: flex; flex-direction: column; }
         .ex-name { font-weight: 800; font-size: 16px; color: #1c1e21; display: block; line-height: 1.2; }
-        .ex-muscle-tag { font-size: 9px; color: #0095f6; font-weight: 800; text-transform: uppercase; margin-top: 4px; }
-        .ex-info { font-size: 11px; color: #65676b; font-weight: 600; background: #f0f2f5; padding: 3px 7px; border-radius: 4px; width: fit-content; margin-top: 8px; display: inline-block; }
-        input[type="checkbox"] { width: 26px; height: 26px; cursor: pointer; accent-color: #00ba69; }
+        
+        .ex-muscle-tag {
+            font-size: 9px; 
+            color: #0095f6; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .ex-info { 
+            font-size: 11px; 
+            color: #65676b; 
+            font-weight: 600; 
+            background: #f0f2f5; 
+            padding: 3px 7px; 
+            border-radius: 4px; 
+            width: fit-content; 
+            margin-top: 8px;
+            display: inline-block;
+        }
+        
+        .check-container { margin-left: 10px; padding-top: 2px; }
+        input[type="checkbox"] { 
+            width: 26px; 
+            height: 26px; 
+            cursor: pointer; 
+            accent-color: #00ba69; 
+        }
+
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .box { background: #f8f9fa; padding: 10px; border-radius: 10px; border: 1px solid #dce2e8; }
-        .box label { display: block; font-size: 9px; color: #0095f6; text-transform: uppercase; margin-bottom: 4px; font-weight: 800; }
-        input[type="text"] { background: none; border: none; color: #1c1e21; width: 100%; font-size: 20px; font-weight: 900; outline: none; }
-        textarea { width: 100%; background: #f8f9fa; border: 1px solid #dce2e8; border-radius: 10px; padding: 10px; color: #1c1e21; margin-top: 10px; box-sizing: border-box; font-family: inherit; resize: none; min-height: 40px; outline: none; font-size: 13px; }
-        .footer-tools { margin-top: 30px; display: flex; justify-content: center; gap: 15px; border-top: 1px solid #dce2e8; padding-top: 20px; }
-        .btn-tool { background: #ffffff; border: 1px solid #dce2e8; color: #65676b; padding: 8px 15px; border-radius: 8px; font-size: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .box { 
+            background: #f8f9fa; 
+            padding: 10px; 
+            border-radius: 10px; 
+            border: 1px solid #dce2e8; 
+        }
+        .box label { 
+            display: block; 
+            font-size: 9px; 
+            color: #0095f6; 
+            text-transform: uppercase; 
+            margin-bottom: 4px; 
+            font-weight: 800; 
+        }
+        input[type="text"] { 
+            background: none; 
+            border: none; 
+            color: #1c1e21; 
+            width: 100%; 
+            font-size: 20px; 
+            font-weight: 900; 
+            outline: none; 
+        }
+        
+        textarea { 
+            width: 100%; 
+            background: #f8f9fa; 
+            border: 1px solid #dce2e8; 
+            border-radius: 10px; 
+            padding: 10px; 
+            color: #1c1e21; 
+            margin-top: 10px; 
+            box-sizing: border-box; 
+            font-family: inherit; 
+            resize: none; 
+            min-height: 40px; 
+            outline: none; 
+            font-size: 13px; 
+        }
+        
+        #save { 
+            position: fixed; 
+            top: 15px; 
+            right: 15px; 
+            width: 8px; 
+            height: 8px; 
+            background: #00ba69; 
+            border-radius: 50%; 
+            display: none; 
+            z-index: 100; 
+            box-shadow: 0 0 10px #00ba69; 
+        }
+
+        .footer-tools { 
+            margin-top: 30px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+            border-top: 1px solid #dce2e8; 
+            padding-top: 20px; 
+        }
+        .btn-tool { 
+            background: #ffffff; 
+            border: 1px solid #dce2e8; 
+            color: #65676b; 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            font-size: 10px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+        }
+        .btn-tool:active { background: #f0f2f5; }
     </style>
 </head>
 <body>
+    <div id="save"></div>
     <div class="header"><span>WORKOUT TRACKER</span><h1>ALPHA TRACK</h1></div>
-    <div class="nav" id="nav-container"></div>
+
+    <div class="nav">
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Lunes" onclick="show('Lunes')">LUNES</button>
+            <span class="day-label">Empuje</span>
+            <span class="muscles-label">Pecho, Hombro, Tríceps</span>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Martes" onclick="show('Martes')">MARTES</button>
+            <span class="day-label">Tracción</span>
+            <span class="muscles-label">Espalda, Bíceps, Antebrazo</span>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Miércoles" onclick="show('Miércoles')">MIÉRCOLES</button>
+            <span class="day-label">PIERNA A Y ABDOMEN</span>
+            <span class="muscles-label">Cuádriceps, Femoral, Abdomen</span>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Jueves" onclick="show('Jueves')">JUEVES</button>
+            <span class="day-label">Torso e Hipertrofia</span>
+            <span class="muscles-label">Pecho, Espalda, Hombro, Tríceps</span>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn" id="btn-Viernes" onclick="show('Viernes')">VIERNES</button>
+            <span class="day-label">PIERNA B E HIPERTROFIA</span>
+            <span class="muscles-label">Glúteo, Femoral, Bíceps, Antebrazo</span>
+        </div>
+    </div>
+
     <div id="list"></div>
+
     <div class="footer-tools">
-        <button class="btn-tool" onclick="exportBackup()">📥 Exportar</button>
-        <button class="btn-tool" onclick="document.getElementById('importFile').click()">📤 Importar</button>
+        <button class="btn-tool" onclick="exportBackup()">📥 Exportar Backup</button>
+        <button class="btn-tool" onclick="document.getElementById('importFile').click()">📤 Importar Backup</button>
         <input type="file" id="importFile" style="display:none" onchange="importBackup(this)">
     </div>
 
 <script>
     const routine = {
-        "Lunes": [["Press de Pecho en Máquina", "4 series x 8-10 reps", "Pectoral Mayor"], ["Press Militar en Máquina", "3 series x 10 reps", "Deltoides Anterior"], ["Máquina Contractora", "3 series x 12-15 reps", "Pectoral Medio"], ["Elevaciones Laterales", "4 series x 15 reps", "Deltoides Lateral"], ["Jalón de Tríceps en Polea", "3 series x 12 reps", "Tríceps"]],
-        "Martes": [["Jalón al Pecho", "4 series x 10-12 reps", "Dorsal Ancho"], ["Remo Sentado en Polea", "3 series x 10 reps", "Trapecio"], ["Remo Unilateral en Máquina", "3 series x 12 reps", "Dorsal"], ["Curl de Bíceps con Barra", "3 series x 10 reps", "Bíceps"], ["Facepulls", "3 series x 15 reps", "Deltoides Posterior"]],
-        "Miércoles": [["Sentadilla en Jaca", "4 series x 10 reps", "Cuádriceps"], ["Prensa de Piernas", "3 series x 12 reps", "Cuádriceps"], ["Extensión de Cuádriceps", "3 series x 15 reps", "Cuádriceps"], ["Abductores en Máquina", "3 series x 15 reps", "Glúteo"], ["Máquina de Abdominales", "3 series x 15-20 reps", "Abdomen"]],
-        "Jueves": [["Press Inclinado", "3 series x 10-12 reps", "Pectoral Superior"], ["Jalón al Pecho", "3 series x 12 reps", "Dorsal Ancho"], ["Aperturas en Máquina", "3 series x 15 reps", "Pectoral"], ["Deltoide Lateral", "3 series x 15 reps", "Deltoides"], ["Extensión de Tríceps", "3 series x 12 reps", "Tríceps"]],
-        "Viernes": [["Hip Thrust", "4 series x 10-12 reps", "Glúteo"], ["Femoral Tumbado", "3 series x 12 reps", "Isquiotibiales"], ["Prensa (Pies altos)", "3 series x 12 reps", "Glúteo/Isquio"], ["Gemelos", "4 series x 15 reps", "Gastrocnemio"], ["Curl de Bíceps en Polea", "3 series x 12 reps", "Bíceps"]]
+        "Lunes": [
+            ["Press de Pecho (Máquina)", "4 series x 8-10 reps", "Pectoral Mayor (Global)"],
+            ["Press Militar (Máquina)", "3 series x 8-10 reps", "Deltoides Anterior"],
+            ["Máquina Contractora (Peck Deck)", "3 series x 10-12 reps", "Pectoral (Fibras Esternales)"],
+            ["Aperturas (Polea)", "3 series x 12-15 reps", "Pectoral (Haz Clavicular / Medio)"],
+            ["Elevaciones Laterales (Mancuernas)", "4 series x 12-15 reps", "Deltoides Lateral"],
+            ["Extensión Unilateral (Polea)", "3 series x 10-12 reps", "Tríceps (Cabeza Lateral y Media)"]
+        ],
+        "Martes": [
+            ["Jalón al Pecho (Polea)", "4 series x 10-12 reps", "Dorsal Ancho y Redondo Mayor"],
+            ["Remo Unilateral (Máquina)", "3 series x 8-10 reps", "Dorsal Ancho y Trapecio Inferior"],
+            ["Remo Sentado (Polea)", "3 series x 10-12 reps", "Trapecio Medio y Romboides"],
+            ["Pull-over (Polea)", "3 series x 12-15 reps", "Dorsal Ancho (Énfasis Aislamiento)"],
+            ["Curl de Bíceps con Barra", "3 series x 8-10 reps", "Bíceps Braquial (Cabeza Corta y Larga)"],
+            ["Curl Martillo (Mancuernas)", "3 series x 10-12 reps", "Braquiorradial y Bíceps (Cabeza Larga)"],
+            ["Curl de Biceps Inverso (Polea)", "3 series x 10-12 reps", "Braquiorradial y Extensores"],
+            ["Curl de Muñeca (Polea)", "3 series x 12-15 reps", "Flexores del Antebrazo"],
+            ["Extensiones de Muñeca Unilateral (Polea)", "3 series x 12-15 reps", "Extensores del Antebrazo"]
+        ],
+        "Miércoles": [
+            ["Sentadilla en Jaca (Hack Squat)", "4 series x 8-10 reps", "Cuádriceps y Glúteo Mayor"],
+            ["Prensa de Piernas", "3 series x 10-12 reps", "Cuádriceps y Glúteo Mayor"],
+            ["Curl Femoral Sentado", "3 series x 10-12 reps", "Isquiotibiales (Bíceps Femoral y Semitendinoso)"],
+            ["Extensión de Cuádriceps", "3 series x 12-15 reps", "Cuádriceps (Aislamiento Vastos)"],
+            ["Abductores en Máquina", "3 series x 12-15 reps", "Glúteo Medio y Estabilizadores"],
+            ["Máquina de Abdominales", "3 series x 15-20 reps", "Recto Abdominal (Core Anterior)"]
+        ],
+        "Jueves": [
+            ["Press Inclinado (Máquina o Mancuernas)", "4 series x 8-10 reps", "Pectoral Mayor (Haz Clavicular)"],
+            ["Jalón al Pecho (Polea)", "3 series x 10-12 reps", "Dorsal Ancho y Romboides"],
+            ["Deltoide Lateral (Polea o Máquina)", "4 series x 12-15 reps", "Deltoides Lateral (Ancho de Hombros)"],
+            ["Fondos en Máquina Asistida", "3 series x 10-12 reps", "Pectoral Inferior y Tríceps (Global)"],
+            ["Extensión Katana (Polea)", "3 series x 10-12 reps", "Tríceps (Énfasis Cabeza Larga)"],
+            ["Patada de Tríceps (Polea)", "3 series x 12-15 reps", "Tríceps (Cabeza Lateral y Media)"]
+        ],
+        "Viernes": [
+            ["Hip Thrust en Máquina", "4 series x 8-10 reps", "Glúteo Mayor e Isquiotibiales"],
+            ["Femoral Tumbado", "3 series x 10-12 reps", "Isquiotibiales (Énfasis en Flexión)"],
+            ["Curl Bayesiano Unilateral (Polea)", "3 series x 10-12 reps", "Bíceps Braquial (Énfasis Cabeza Larga)"],
+            ["Curl de Bíceps (Polea)", "3 series x 10-12 reps", "Bíceps Braquial (Tensión Constante)"],
+            ["Curl Concentrado (Mancuernas)", "3 series x 12 reps", "Bíceps Braquial (Pico de Contracción)"],
+            ["Gemelos", "4 series x 12-15 reps", "Gastrocnemio y Sóleo"],
+            ["Curl de Biceps Inverso (Polea)", "3 series x 10-12 reps", "Braquiorradial y Extensores"],
+            ["Curl de Muñeca (Polea)", "3 series x 12-15 reps", "Flexores del Antebrazo"],
+            ["Extensiones de Muñeca Unilateral (Polea)", "3 series x 12-15 reps", "Extensores del Antebrazo"]
+        ]
     };
 
-    function getExKey(name) { return 'alpha_v4_ex_' + name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]|[^a-z0-9]/g, ""); }
+    let currentDay = "";
+
+    function getExKey(exName) {
+        const clean = exName.replace('★ EXTRA: ', '').trim().toLowerCase();
+        return 'alpha_v4_ex_' + clean.replace(/[^a-z0-9áéíóúñ]/g, '_');
+    }
 
     function show(day) {
+        currentDay = day;
         const content = document.getElementById('list');
-        let html = '';
+        let htmlBuffer = '';
+        
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + day));
+
         routine[day].forEach((ex, i) => {
-            const data = JSON.parse(localStorage.getItem(getExKey(ex[0])) || '{"w":"","r":"","n":""}');
-            html += `<div class="card" id="card-${day}-${i}">
-                <div class="ex-header">
-                    <div class="ex-title-group"><span class="ex-name">${ex[0]}</span><span class="ex-muscle-tag">${ex[2]}</span><span class="ex-info">${ex[1]}</span></div>
-                    <input type="checkbox" onclick="this.parentElement.parentElement.parentElement.classList.toggle('done')">
-                </div>
-                <div class="grid">
-                    <div class="box"><label>Peso</label><input type="text" value="${data.w}" oninput="upd('${ex[0]}','w',this.value)"></div>
-                    <div class="box"><label>Reps</label><input type="text" value="${data.r}" oninput="upd('${ex[0]}','r',this.value)"></div>
-                </div>
-                <textarea oninput="upd('${ex[0]}','n',this.value)" placeholder="Notas">${data.n}</textarea>
-            </div>`;
+            const kData = getExKey(ex[0]);
+            const kDone = `alpha_v4_done_${day}_${i}`; 
+            
+            let s = JSON.parse(localStorage.getItem(kData)) || {w:'', r:'', n:''};
+            let isDone = localStorage.getItem(kDone) === 'true';
+            
+            const cardDoneClass = isDone ? 'done' : '';
+            const isChecked = isDone ? 'checked' : '';
+            const escapedExName = ex[0].replace(/'/g, "\\'");
+
+            htmlBuffer += `
+                <div class="card ${cardDoneClass}" id="card-${day}-${i}">
+                    <div class="ex-header">
+                        <div class="ex-title-group">
+                            <span class="ex-name">${ex[0]}</span>
+                            <span class="ex-muscle-tag">${ex[2]}</span>
+                            <span class="ex-info">OBJETIVO: ${ex[1]}</span>
+                        </div>
+                        <div class="check-container">
+                            <input type="checkbox" ${isChecked} onclick="toggleDone('${day}', ${i}, this)">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${escapedExName}','w',this.value)"></div>
+                        <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${escapedExName}','r',this.value)"></div>
+                    </div>
+                    <textarea placeholder="Notas de la serie..." oninput="upd('${escapedExName}','n',this.value)">${s.n}</textarea>
+                </div>`;
         });
-        content.innerHTML = html;
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.innerText === day.toUpperCase()));
+        content.innerHTML = htmlBuffer;
     }
 
-    function upd(name, f, v) {
-        const o = JSON.parse(localStorage.getItem(getExKey(name)) || '{"w":"","r":"","n":""}');
+    function toggleDone(day, i, el) {
+        const kDone = `alpha_v4_done_${day}_${i}`;
+        localStorage.setItem(kDone, el.checked ? 'true' : 'false');
+        document.getElementById(`card-${day}-${i}`).classList.toggle('done', el.checked);
+        saveInd();
+    }
+
+    function upd(exName, f, v) {
+        const k = getExKey(exName);
+        const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:''};
         o[f] = v;
-        localStorage.setItem(getExKey(name), JSON.stringify(o));
+        localStorage.setItem(k, JSON.stringify(o));
+        saveInd();
     }
 
-    function importBackup(input) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const data = JSON.parse(e.target.result);
-            const map = {"Viernes0":"Hip Thrust", "Lunes0":"Press de Pecho en Máquina", "Martes0":"Jalón al Pecho", "Miércoles0":"Sentadilla en Jaca", "Jueves0":"Press Inclinado"};
-            Object.keys(data).forEach(k => {
-                const match = k.match(/alpha_v4_(Lunes|Martes|Miércoles|Jueves|Viernes)(\d+)/);
-                if (match) localStorage.setItem(getExKey(map[match[1]+match[2]] || match[1]+match[2]), data[k]);
-                else if (k.startsWith('alpha_v4_ex_')) localStorage.setItem(k, data[k]);
-            });
-            location.reload();
-        };
-        reader.readAsText(input.files[0]);
+    function saveInd() {
+        const indicator = document.getElementById('save');
+        indicator.style.display = 'block';
+        clearTimeout(window.t);
+        window.t = setTimeout(() => { indicator.style.display='none'; }, 800);
     }
 
     function exportBackup() {
-        const b = {}; for (let i=0; i<localStorage.length; i++) { const k=localStorage.key(i); if(k.startsWith('alpha_v4_')) b[k] = localStorage.getItem(k); }
-        const a = document.createElement('a'); a.href = 'data:application/json,' + JSON.stringify(b); a.download = 'backup.json'; a.click();
+        const backup = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('alpha_v4_')) {
+                backup[key] = localStorage.getItem(key);
+            }
+        }
+        const blob = new Blob([JSON.stringify(backup)], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `alpha_track_backup_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
     }
 
-    // Inicialización
-    Object.keys(routine).forEach(d => {
-        const btn = document.createElement('button');
-        btn.className = 'nav-btn'; btn.innerText = d.toUpperCase(); btn.onclick = () => show(d);
-        document.getElementById('nav-container').appendChild(btn);
+    function importBackup(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            // Diccionario de traducción: Clave Antigua -> Nombre Exacto en tu nueva rutina
+            const traductor = {
+                "alpha_v4_Lunes0": "Press de Pecho (Máquina)", "alpha_v4_Lunes1": "Press Militar (Máquina)", "alpha_v4_Lunes2": "Máquina Contractora (Peck Deck)", "alpha_v4_Lunes3": "Aperturas (Polea)", "alpha_v4_Lunes4": "Elevaciones Laterales (Mancuernas)", "alpha_v4_Lunes5": "Extensión Unilateral (Polea)",
+                "alpha_v4_Martes0": "Jalón al Pecho (Polea)", "alpha_v4_Martes1": "Remo Unilateral (Máquina)", "alpha_v4_Martes2": "Remo Sentado (Polea)", "alpha_v4_Martes3": "Pull-over (Polea)", "alpha_v4_Martes4": "Curl de Bíceps con Barra", "alpha_v4_Martes5": "Curl Martillo (Mancuernas)", "alpha_v4_Martes6": "Curl de Biceps Inverso (Polea)", "alpha_v4_Martes7": "Curl de Muñeca (Polea)", "alpha_v4_Martes8": "Extensiones de Muñeca Unilateral (Polea)",
+                "alpha_v4_Miércoles0": "Sentadilla en Jaca (Hack Squat)", "alpha_v4_Miércoles1": "Prensa de Piernas", "alpha_v4_Miércoles2": "Curl Femoral Sentado", "alpha_v4_Miércoles3": "Extensión de Cuádriceps", "alpha_v4_Miércoles4": "Abductores en Máquina", "alpha_v4_Miércoles5": "Máquina de Abdominales",
+                "alpha_v4_Jueves0": "Press Inclinado (Máquina o Mancuernas)", "alpha_v4_Jueves1": "Jalón al Pecho (Polea)", "alpha_v4_Jueves2": "Deltoide Lateral (Polea o Máquina)", "alpha_v4_Jueves3": "Fondos en Máquina Asistida", "alpha_v4_Jueves4": "Extensión Katana (Polea)", "alpha_v4_Jueves5": "Patada de Tríceps (Polea)",
+                "alpha_v4_Viernes0": "Hip Thrust en Máquina", "alpha_v4_Viernes1": "Femoral Tumbado", "alpha_v4_Viernes2": "Curl Bayesiano Unilateral (Polea)", "alpha_v4_Viernes3": "Curl de Bíceps (Polea)", "alpha_v4_Viernes4": "Curl Concentrado (Mancuernas)", "alpha_v4_Viernes5": "Gemelos", "alpha_v4_Viernes6": "Curl de Biceps Inverso (Polea)", "alpha_v4_Viernes7": "Curl de Muñeca (Polea)", "alpha_v4_Viernes8": "Extensiones de Muñeca Unilateral (Polea)"
+            };
+
+            if (confirm("¿Importar y migrar datos antiguos?")) {
+                Object.keys(data).forEach(oldKey => {
+                    // Si la clave existe en nuestro traductor, la convertimos al nuevo formato
+                    if (traductor[oldKey]) {
+                        const nuevoNombre = traductor[oldKey];
+                        const newKey = getExKey(nuevoNombre);
+                        localStorage.setItem(newKey, data[oldKey]);
+                    } 
+                    // Si ya es formato nuevo (alpha_v4_ex_...), lo guardamos directo
+                    else if (oldKey.startsWith('alpha_v4_ex_')) {
+                        localStorage.setItem(oldKey, data[oldKey]);
+                    }
+                });
+                alert("¡Migración y carga exitosa!");
+                location.reload();
+            }
+        } catch (err) {
+            alert("Error al procesar el backup.");
+        }
+    };
+    reader.readAsText(file);
+}
+    function checkMidnightReset() {
+        const hoy = new Date().toDateString();
+        const ultimaFecha = localStorage.getItem('alpha_last_open');
+
+        if (ultimaFecha && ultimaFecha !== hoy) {
+            Object.keys(routine).forEach(dayName => {
+                routine[dayName].forEach((_, index) => {
+                    const kDone = `alpha_v4_done_${dayName}_${index}`;
+                    localStorage.removeItem(kDone);
+                });
+            });
+        }
+        localStorage.setItem('alpha_last_open', hoy);
+    }
+
+    window.addEventListener('load', () => {
+        checkMidnightReset();
+        const dNum = new Date().getDay();
+        const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+        const hoy = routine[days[dNum]] ? days[dNum] : "Lunes";
+        show(hoy);
+
+        setTimeout(() => {
+            const navBar = document.querySelector('.nav');
+            const activeBtn = document.getElementById('btn-' + hoy);
+            if (navBar && activeBtn) {
+                const scrollTarget = activeBtn.offsetLeft - (navBar.offsetWidth / 2) + (activeBtn.offsetWidth / 2);
+                navBar.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+            }
+        }, 400); 
     });
-    show('Lunes');
 </script>
 </body>
 </html>
