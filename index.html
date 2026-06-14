@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -89,7 +89,7 @@
             border-radius: 18px; 
             padding: 15px; 
             margin-bottom: 15px; 
-            border-left: 5px solid #dce2e8; 
+            border: 1px solid #dce2e8; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
             transition: 0.3s; 
             position: relative; 
@@ -97,24 +97,8 @@
         .card.done { 
             opacity: 0.35; 
             filter: grayscale(0.5); 
-            border-left-color: #bdc3c7 !important; 
+            border-color: #bdc3c7 !important; 
             background: #f8f9fa; 
-        }
-        
-        .card.pecho { border-left-color: #f87171; }
-        .card.espalda { border-left-color: #60a5fa; }
-        .card.pierna { border-left-color: #34d399; }
-        .card.hombro { border-left-color: #fbbf24; }
-        .card.brazo { border-left-color: #c084fc; }
-        .card.antebrazo { border-left-color: #94a3b8; }
-        .card.abdomen { border-left-color: #22d3ee; }
-        .card.hombro-lat { border-left-color: #94a3b8; }
-
-        .card.extra-bonus {
-            border: 1px solid rgba(251, 191, 36, 0.4);
-            border-left: 5px solid #fbbf24;
-            background: linear-gradient(145deg, #ffffff, #fffdf0); 
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);
         }
 
         .ex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
@@ -123,8 +107,6 @@
         .ex-info { 
             font-size: 11px; 
             color: #65676b; 
-            margin-top: 4px; 
-            display: block; 
             font-weight: 600; 
             background: #f0f2f5; 
             padding: 2px 6px; 
@@ -233,7 +215,7 @@
         </div>
         <div class="nav-item">
             <button class="nav-btn" id="btn-Miércoles" onclick="show('Miércoles')">MIÉRCOLES</button>
-            <span class="day-label">Pierna A y Abdomen</span>
+            <span class="day-label">PIERNA A Y ABDOMEN</span>
             <span class="muscles-label">Cuádriceps, Femoral, Abdomen</span>
         </div>
         <div class="nav-item">
@@ -243,8 +225,8 @@
         </div>
         <div class="nav-item">
             <button class="nav-btn" id="btn-Viernes" onclick="show('Viernes')">VIERNES</button>
-            <span class="day-label">Pierna B e Hipertrofia</span>
-            <span class="muscles-label">Femoral, Bíceps, Gemelo, Antebrazo</span>
+            <span class="day-label">PIERNA B E HIPERTROFIA</span>
+            <span class="muscles-label">Glúteo, Femoral, Bíceps, Antebrazo</span>
         </div>
     </div>
 
@@ -258,14 +240,60 @@
 
 <script>
     const routine = {
-        "Lunes": [["Press de Pecho (Máquina)", "4 series x 8-10 reps", "pecho"], ["Press Militar (Máquina)", "3 series x 10 reps", "hombro"], ["Máquina Contractora (Peck Deck)", "3 series x 12-15 reps", "pecho"], ["Elevaciones Laterales (Mancuernas)", "4 series x 15 reps", "hombro-lat"], ["Extensión Unilateral (Polea)", "3 series x 12 reps/brazo", "brazo"], ["★ EXTRA: Aperturas (Polea)", "3 series x 15 reps", "pecho"]],
-        "Martes": [["Jalón al Pecho (Polea)", "4 series x 10-12 reps", "espalda"], ["Remo Sentado (Polea)", "3 series x 10 reps", "espalda"], ["Remo Unilateral (Máquina)", "3 series x 12 reps/lado", "espalda"], ["Curl de Bíceps con Barra", "3 series x 10 reps", "brazo"], ["Curl Martillo (Mancuernas)", "3 series x 12 reps", "brazo"], ["Curl de Muñeca (Polea)", "3 series x 12 reps", "antebrazo"], ["Curl de Biceps Inverso (Polea)", "3 series x 10 reps", "antebrazo"], ["Extensiones de Muñeca Unilateral (Polea)", "2 series x 10 reps", "antebrazo"], ["★ EXTRA: Pull-over (Polea)", "3 series x 12-15 reps", "espalda"]],
-        "Miércoles": [["Sentadilla en Jaca (Hack Squat)", "4 series x 10 reps", "pierna"], ["Prensa de Piernas", "3 series x 12 reps", "pierna"], ["Extensión de Cuádriceps", "3 series x 15 reps", "pierna"], ["Abductores en Máquina", "3 series x 15 reps", "pierna"], ["Máquina de Abdominales", "3 series x 15-20 reps", "abdomen"], ["★ EXTRA: Curl Femoral de Pie", "3 series x 12 reps", "pierna"]],
-        "Jueves": [["Press Inclinado (Máquina o Mancuernas)", "3 series x 10-12 reps", "pecho"], ["Jalón al Pecho (Polea)", "3 series x 12 reps", "espalda"], ["Extensión Katana (Polea)", "3 series x 12-15 reps", "brazo"], ["Patada de Tríceps (Polea)", "3 series x 15 reps", "brazo"], ["Deltoide Lateral (Polea o Máquina)", "3 series x 15 reps", "hombro-lat"], ["★ EXTRA: Fondos en Máquina Asistida", "3 series x 10-12 reps", "brazo"]],
-        "Viernes": [["Peso Muerto Rumano", "4 series x 10-12 reps", "pierna"], ["Femoral Tumbado", "3 series x 12 reps", "pierna"], ["Curl de Bíceps (Polea)", "3 series x 12 reps", "brazo"], ["Curl Bayesiano Unilateral (Polea)", "3 series x 12 reps/brazo", "brazo"], ["Gemelos", "4 series x 15 reps", "pierna"], ["Curl de Muñeca (Polea)", "3 series x 12 reps", "antebrazo"], ["Curl de Biceps Inverso (Polea)", "3 series x 10 reps", "antebrazo"], ["Extensiones de Muñeca Unilateral (Polea)", "2 series x 10 reps", "antebrazo"], ["★ EXTRA: Curl Concentrado (Mancuernas)", "3 series x 12 reps/brazo", "brazo"]]
+        "Lunes": [
+            ["Press de Pecho (Máquina)", "4 series x 8-10 reps", "Pectoral Mayor (Global)"],
+            ["Press Militar (Máquina)", "3 series x 8-10 reps", "Deltoides Anterior"],
+            ["Máquina Contractora (Peck Deck)", "3 series x 10-12 reps", "Pectoral (Fibras Esternales)"],
+            ["Aperturas (Polea)", "3 series x 12-15 reps", "Pectoral (Haz Clavicular / Medio)"],
+            ["Elevaciones Laterales (Mancuernas)", "4 series x 12-15 reps", "Deltoides Lateral"],
+            ["Extensión Unilateral (Polea)", "3 series x 10-12 reps", "Tríceps (Cabeza Lateral y Media)"]
+        ],
+        "Martes": [
+            ["Jalón al Pecho (Polea)", "4 series x 10-12 reps", "Dorsal Ancho y Redondo Mayor"],
+            ["Remo Unilateral (Máquina)", "3 series x 8-10 reps", "Dorsal Ancho y Trapecio Inferior"],
+            ["Remo Sentado (Polea)", "3 series x 10-12 reps", "Trapecio Medio y Romboides"],
+            ["Pull-over (Polea)", "3 series x 12-15 reps", "Dorsal Ancho (Énfasis Aislamiento)"],
+            ["Curl de Bíceps con Barra", "3 series x 8-10 reps", "Bíceps Braquial (Cabeza Corta y Larga)"],
+            ["Curl Martillo (Mancuernas)", "3 series x 10-12 reps", "Braquiorradial y Bíceps (Cabeza Larga)"],
+            ["Curl de Biceps Inverso (Polea)", "3 series x 10-12 reps", "Braquiorradial y Extensores"],
+            ["Curl de Muñeca (Polea)", "3 series x 12-15 reps", "Flexores del Antebrazo"],
+            ["Extensiones de Muñeca Unilateral (Polea)", "3 series x 12-15 reps", "Extensores del Antebrazo"]
+        ],
+        "Miércoles": [
+            ["Sentadilla en Jaca (Hack Squat)", "4 series x 8-10 reps", "Cuádriceps y Glúteo Mayor"],
+            ["Prensa de Piernas", "3 series x 10-12 reps", "Cuádriceps y Glúteo Mayor"],
+            ["Curl Femoral Sentado", "3 series x 10-12 reps", "Isquiotibiales (Bíceps Femoral y Semitendinoso)"],
+            ["Extensión de Cuádriceps", "3 series x 12-15 reps", "Cuádriceps (Aislamiento Vastos)"],
+            ["Abductores en Máquina", "3 series x 12-15 reps", "Glúteo Medio y Estabilizadores"],
+            ["Máquina de Abdominales", "3 series x 15-20 reps", "Recto Abdominal (Core Anterior)"]
+        ],
+        "Jueves": [
+            ["Press Inclinado (Máquina o Mancuernas)", "4 series x 8-10 reps", "Pectoral Mayor (Haz Clavicular)"],
+            ["Jalón al Pecho (Polea)", "3 series x 10-12 reps", "Dorsal Ancho y Romboides"],
+            ["Deltoide Lateral (Polea o Máquina)", "4 series x 12-15 reps", "Deltoides Lateral (Ancho de Hombros)"],
+            ["Fondos en Máquina Asistida", "3 series x 10-12 reps", "Pectoral Inferior y Tríceps (Global)"],
+            ["Extensión Katana (Polea)", "3 series x 10-12 reps", "Tríceps (Énfasis Cabeza Larga)"],
+            ["Patada de Tríceps (Polea)", "3 series x 12-15 reps", "Tríceps (Cabeza Lateral y Media)"]
+        ],
+        "Viernes": [
+            ["Hip Thrust", "4 series x 8-10 reps", "Glúteo Mayor e Isquiotibiales"],
+            ["Femoral Tumbado", "3 series x 10-12 reps", "Isquiotibiales (Énfasis en Flexión)"],
+            ["Curl Bayesiano Unilateral (Polea)", "3 series x 10-12 reps", "Bíceps Braquial (Énfasis Cabeza Larga)"],
+            ["Curl de Bíceps (Polea)", "3 series x 10-12 reps", "Bíceps Braquial (Tensión Constante)"],
+            ["Curl Concentrado (Mancuernas)", "3 series x 12 reps", "Bíceps Braquial (Pico de Contracción)"],
+            ["Gemelos", "4 series x 12-15 reps", "Gastrocnemio y Sóleo"],
+            ["Curl de Biceps Inverso (Polea)", "3 series x 10-12 reps", "Braquiorradial y Extensores"],
+            ["Curl de Muñeca (Polea)", "3 series x 12-15 reps", "Flexores del Antebrazo"],
+            ["Extensiones de Muñeca Unilateral (Polea)", "3 series x 12-15 reps", "Extensores del Antebrazo"]
+        ]
     };
 
     let currentDay = "";
+
+    function getExKey(exName) {
+        const clean = exName.replace('★ EXTRA: ', '').trim().toLowerCase();
+        return 'alpha_v4_ex_' + clean.replace(/[^a-z0-9áéíóúñ]/g, '_');
+    }
 
     function show(day) {
         currentDay = day;
@@ -275,48 +303,50 @@
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + day));
 
         routine[day].forEach((ex, i) => {
-            const k = `alpha_v4_${day}${i}`;
-            let s = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
+            const kData = getExKey(ex[0]);
+            const kDone = `alpha_v4_done_${day}_${i}`; 
             
-            const isExtra = ex[0].includes('★');
-            const extraClass = isExtra ? 'extra-bonus' : '';
-            const isDone = s.done ? 'done' : '';
-            const isChecked = s.done ? 'checked' : '';
+            let s = JSON.parse(localStorage.getItem(kData)) || {w:'', r:'', n:''};
+            let isDone = localStorage.getItem(kDone) === 'true';
+            
+            const cardDoneClass = isDone ? 'done' : '';
+            const isChecked = isDone ? 'checked' : '';
+            const escapedExName = ex[0].replace(/'/g, "\\'");
 
             htmlBuffer += `
-                <div class="card ${ex[2]} ${extraClass} ${isDone}" id="card-${day}-${i}">
+                <div class="card ${cardDoneClass}" id="card-${day}-${i}">
                     <div class="ex-header">
                         <div class="ex-title-group">
                             <span class="ex-name">${ex[0]}</span>
-                            <span class="ex-info">OBJETIVO: ${ex[1]}</span>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; gap: 8px;">
+                                <span class="ex-info">OBJETIVO: ${ex[1]}</span>
+                                <span style="font-size: 10px; color: #0095f6; font-weight: 700; background: #e0f2fe; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; white-space: nowrap;">${ex[2]}</span>
+                            </div>
                         </div>
                         <div class="check-container">
                             <input type="checkbox" ${isChecked} onclick="toggleDone('${day}', ${i}, this)">
                         </div>
                     </div>
                     <div class="grid">
-                        <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${day}',${i},'w',this.value)"></div>
-                        <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${day}',${i},'r',this.value)"></div>
+                        <div class="box"><label>Peso (kg)</label><input type="text" value="${s.w}" placeholder="0" oninput="upd('${escapedExName}','w',this.value)"></div>
+                        <div class="box"><label>Reps Reales</label><input type="text" value="${s.r}" placeholder="0" oninput="upd('${escapedExName}','r',this.value)"></div>
                     </div>
-                    <textarea placeholder="Notas de la serie..." oninput="upd('${day}',${i},'n',this.value)">${s.n}</textarea>
+                    <textarea placeholder="Notas de la serie..." oninput="upd('${escapedExName}','n',this.value)">${s.n}</textarea>
                 </div>`;
         });
         content.innerHTML = htmlBuffer;
     }
 
     function toggleDone(day, i, el) {
-        const k = `alpha_v4_${day}${i}`;
-        const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
-        o.done = el.checked;
-        o.time = el.checked ? Date.now() : 0;
-        localStorage.setItem(k, JSON.stringify(o));
+        const kDone = `alpha_v4_done_${day}_${i}`;
+        localStorage.setItem(kDone, el.checked ? 'true' : 'false');
         document.getElementById(`card-${day}-${i}`).classList.toggle('done', el.checked);
         saveInd();
     }
 
-    function upd(d, i, f, v) {
-        const k = `alpha_v4_${d}${i}`;
-        const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:'', done: false, time: 0};
+    function upd(exName, f, v) {
+        const k = getExKey(exName);
+        const o = JSON.parse(localStorage.getItem(k)) || {w:'', r:'', n:''};
         o[f] = v;
         localStorage.setItem(k, JSON.stringify(o));
         saveInd();
@@ -375,13 +405,8 @@
         if (ultimaFecha && ultimaFecha !== hoy) {
             Object.keys(routine).forEach(dayName => {
                 routine[dayName].forEach((_, index) => {
-                    const key = `alpha_v4_${dayName}${index}`;
-                    let data = JSON.parse(localStorage.getItem(key));
-                    if (data && data.done) {
-                        data.done = false;
-                        data.time = 0;
-                        localStorage.setItem(key, JSON.stringify(data));
-                    }
+                    const kDone = `alpha_v4_done_${dayName}_${index}`;
+                    localStorage.removeItem(kDone);
                 });
             });
         }
