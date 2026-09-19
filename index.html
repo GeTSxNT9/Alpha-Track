@@ -84,6 +84,45 @@
             width: 100%; 
         }
 
+        .progress-container { 
+            background: #ffffff; 
+            border-radius: 18px; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            border: 1px solid #dce2e8; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+        }
+        .progress-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 8px; 
+        }
+        .progress-title { 
+            font-size: 10px; 
+            color: #0095f6; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+        }
+        .progress-percentage { 
+            font-size: 12px; 
+            font-weight: 900; 
+            color: #1c1e21; 
+        }
+        .progress-bar-bg { 
+            background: #f0f2f5; 
+            height: 8px; 
+            border-radius: 4px; 
+            overflow: hidden; 
+            border: 1px solid #dce2e8; 
+        }
+        .progress-bar-fill { 
+            background: #0095f6; 
+            height: 100%; 
+            width: 0%; 
+            transition: width 0.3s ease; 
+        }
+
         .card { 
             background: #ffffff; 
             border-radius: 18px; 
@@ -242,6 +281,16 @@
         </div>
     </div>
 
+    <div class="progress-container">
+        <div class="progress-header">
+            <span class="progress-title">Progreso del día</span>
+            <span class="progress-percentage" id="progress-text">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
     <div id="list"></div>
 
     <div class="footer-tools">
@@ -266,10 +315,7 @@
             ["Remo Sentado (Polea)", "3 series x 10-12 reps", "Trapecio Medio y Romboides"],
             ["Pull-over (Polea)", "3 series x 12-15 reps", "Dorsal Ancho (Énfasis Aislamiento)"],
             ["Curl de Bíceps con Barra", "3 series x 8-10 reps", "Bíceps Braquial (Cabeza Corta y Larga)"],
-            ["Curl Martillo (Mancuernas)", "3 series x 10-12 reps", "Braquiorradial y Bíceps (Cabeza Larga)"],
-            ["Curl de Biceps Inverso (Polea)", "3 series x 10-12 reps", "Braquiorradial y Extensores"],
-            ["Curl de Muñeca (Polea)", "3 series x 12-15 reps", "Flexores del Antebrazo"],
-            ["Extensiones de Muñeca Unilateral (Polea)", "3 series x 12-15 reps", "Extensores del Antebrazo"]
+            ["Curl Martillo (Mancuernas)", "3 series x 10-12 reps", "Braquiorradial y Bíceps (Cabeza Larga)"]
         ],
         "Miércoles": [
             ["Sentadilla en Jaca (Hack Squat)", "4 series x 8-10 reps", "Cuádriceps y Glúteo Mayor"],
@@ -284,7 +330,7 @@
             ["Jalón al Pecho (Polea)", "3 series x 10-12 reps", "Dorsal Ancho y Romboides"],
             ["Deltoide Lateral (Polea o Máquina)", "4 series x 12-15 reps", "Deltoides Lateral (Ancho de Hombros)"],
             ["Fondos en Máquina Asistida", "3 series x 10-12 reps", "Pectoral Inferior y Tríceps (Global)"],
-            ["Extensión Katana (Polea)", "3 series x 10-12 reps", "Tríceps (Énfasis Cabeza Larga)"],
+            ["Extensión de tríceps por encima de la cabeza (Polea)", "3 series x 10-12 reps", "Tríceps (Énfasis Cabeza Larga)"],
             ["Patada de Tríceps (Polea)", "3 series x 12-15 reps", "Tríceps (Cabeza Lateral y Media)"]
         ],
         "Viernes": [
@@ -293,10 +339,7 @@
             ["Curl Bayesiano Unilateral (Polea)", "3 series x 10-12 reps", "Bíceps Braquial (Énfasis Cabeza Larga)"],
             ["Curl de Bíceps (Polea)", "3 series x 10-12 reps", "Bíceps Braquial (Tensión Constante)"],
             ["Curl Concentrado (Mancuernas)", "3 series x 12 reps", "Bíceps Braquial (Pico de Contracción)"],
-            ["Gemelos", "4 series x 12-15 reps", "Gastrocnemio y Sóleo"],
-            ["Curl de Biceps Inverso (Polea)", "3 series x 10-12 reps", "Braquiorradial y Extensores"],
-            ["Curl de Muñeca (Polea)", "3 series x 12-15 reps", "Flexores del Antebrazo"],
-            ["Extensiones de Muñeca Unilateral (Polea)", "3 series x 12-15 reps", "Extensores del Antebrazo"]
+            ["Gemelos", "4 series x 12-15 reps", "Gastrocnemio y Sóleo"]
         ]
     };
 
@@ -316,6 +359,23 @@
         }
         // Si no, usamos el día para separarlos
         return 'alpha_v4_' + day + '_' + formattedName;
+    }
+
+    function updateProgress(day) {
+        const exercises = routine[day];
+        if (!exercises) return;
+        let completed = 0;
+        exercises.forEach((_, i) => {
+            const kDone = `alpha_v4_done_${day}_${i}`;
+            if (localStorage.getItem(kDone) === 'true') {
+                completed++;
+            }
+        });
+        const percent = exercises.length > 0 ? Math.round((completed / exercises.length) * 100) : 0;
+        const fillEl = document.getElementById('progress-fill');
+        const textEl = document.getElementById('progress-text');
+        if (fillEl) fillEl.style.width = percent + '%';
+        if (textEl) textEl.textContent = percent + '%';
     }
 
     function show(day) {
@@ -356,6 +416,7 @@
                 </div>`;
         });
         content.innerHTML = htmlBuffer;
+        updateProgress(day);
     }
 
     function upd(day, exName, f, v) {
@@ -379,6 +440,7 @@
                 card.classList.remove('done');
             }
         }
+        updateProgress(day);
         saveInd();
     }
 
